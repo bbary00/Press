@@ -28,8 +28,14 @@
 }
 .text {
   grid-area: texts;
-  font-size: 0.9rem;
+  color: rgb(36, 36, 36);
+  font-size: 1rem;
   
+}
+.text:hover {
+  color: black;
+  position: relative;
+  /* left: 5px; */
 }
 .likes {
   grid-area: likes;
