@@ -1,0 +1,84 @@
+
+.postWrapper {
+  display: block;
+  max-width: auto;
+  margin: 0 auto;
+}
+
+.item {
+  margin-bottom: 8px;
+}
+.title {
+  grid-area: title;
+  display: block;
+  font-weight: 500;
+}
+.date {
+  grid-area: date;
+  padding-top: 1px;
+  display: block;
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+}
+.time {
+  color: rgba(0,0,0,0.6);
+  font-weight: 500;
+}
+.text {
+  grid-area: texts;
+  font-size: 0.9rem;
+  
+}
+.likes {
+  grid-area: likes;
+  font-size: 0.8rem;
+  color: rgba(0, 47, 255, 0.726);
+  font-weight: 500;
+}
+@media (max-width: 930px) {
+  .postWrapper {
+    display: grid;
+    grid-template-rows: 20% 1fr 15%;
+    grid-template-columns: 1fr 25%;
+    grid-gap: 15px;
+    max-width: auto;
+    margin: 0 auto;
+    grid-template-areas: 
+    "title date"
+    "texts texts"
+    "likes likes"
+  }
+}
+@media (max-width: 720px) {
+  .postWrapper {
+    display: grid;
+    grid-template-rows: 20% 1fr 15%;
+    grid-template-columns: 1fr 35%;
+    grid-gap: 15px;
+    max-width: auto;
+    /* padding: 0 15px 0 15px; */
+    margin: 0 auto;
+    grid-template-areas: 
+    "title date"
+    "texts texts"
+    "likes likes"
+  }
+}
+@media (max-width: 590px) {
+  .postWrapper {
+    display: grid;
+    grid-template-rows: 20% 1fr 15%;
+    grid-template-columns: 1fr 50%;
+    grid-gap: 15px;
+    max-width: auto;
+    /* padding: 0 15px 0 15px; */
+    margin: 0 auto;
+    grid-template-areas: 
+    "title date"
+    "texts texts"
+    "likes likes"
+  }
+}
+

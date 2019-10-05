@@ -1,0 +1,170 @@
+.dialogsGrid {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  width: 100%;
+  height: auto;
+  grid-template-areas: 
+  "d m";
+}
+.dialogs {
+  grid-area: d;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 60px - 5px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dialogs::-webkit-scrollbar {
+	width: 10px;
+  background-color: #fff1d7;
+  opacity: 0.5;
+}
+.dialogs::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+}
+
+.dialogs::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, #fff, #e4e4e4);
+  border: 1px solid #aaa;
+}
+
+.dialogs::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+.dialogs::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(left, #22ADD4, #1E98BA);
+}
+
+
+.dialogItems {
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 65px);
+  padding: 5px 5px 5px 5px;
+  background-color: white;
+}
+
+.item {
+  width: 100%;
+  height: auto;
+  display: block;
+  padding: 10px;
+  margin: 0 0 5px 0;
+  color: black;
+  background-color: white;
+  box-shadow: 0px 0px 7px rgba(0,0,0,0.15);
+}
+.item:last-child {
+  margin-bottom: 0px;
+}
+.item:hover {
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  background-color: rgb(255, 228, 159);
+  text-decoration: none;
+  color: black;
+  position: relative;
+  right: -3px;
+}
+.item:hover {
+  right: -3px;
+}
+
+.active {
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  background-color: rgb(255, 228, 159);
+  text-decoration: none;
+  color: black;
+  position: relative;
+  right: -3px;
+}
+.item:hover .active {
+  right: 0;
+  box-shadow: none;
+}
+
+.ava {
+  width: 26px;
+  height: 26px;
+  border-radius: 100%;
+  float: left;
+}
+.ava img {
+  max-height: 26px;
+  width: 26px;
+  position: relative;
+  top: -2px;
+  border-radius: 100%;
+}
+.item p {
+  display: inline-block;
+  margin-bottom: 0 !important;
+  padding-left: 5px;
+}
+.messages {
+  grid-area: m;
+  width: 100%;
+  height: calc(100vh - 60px - 5px);
+  padding: 5px 10px 5px 5px;
+}
+.messagesItems {
+  padding: 5px;
+  background-color: rgb(255, 241, 215);
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+}
+.messageBlock {
+  padding: 5px;
+  margin: 10px;
+  width: auto;
+  height: auto;
+  position: relative;
+  display: flex;
+}
+.message {
+  padding: 5px 10px 5px 10px;
+  width: auto;
+  display: block;
+  position: relative;
+  max-width: 90%;
+  justify-self: flex-end;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+.inputBlock {
+  margin-bottom: 15px;
+  padding: 15px 15px 65px 15px;
+  margin-top: 10px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: auto;
+  background-color: rgb(255, 241, 215);
+}
+
+@media (max-width: 500px) {
+  .dialogItems {
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 65px);
+    padding: 5px 5px 5px 5px;
+    /* margin-top: 5px; */
+    background-color: white;
+  }
+  .dialogs {
+    margin-top: 5px;
+  }
+}
