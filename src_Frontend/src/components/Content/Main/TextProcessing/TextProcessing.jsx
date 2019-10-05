@@ -4,16 +4,16 @@ import SentenceTemplate from './SentenceTemplate/SentenceTemplate';
 import Select from 'react-select';
 
 const TextProcessing = (props) => {
-	// debugger;
+	debugger;
 	let summarizedTextElements = props.textSummarized.map(item => <SentenceTemplate title={item.id} text={item.text} />);
-	let inputText = React.createRef();
+	
 
 	let sendRequest = () => {
 		summarizedTextElements = [];
 		let text = inputText.current.value;
 		let reqObj = {
 			original_text: text,
-			number_of_sentences: 3,
+			number_of_sentences: props.numberOfSentencesToProcess,
 			number_of_symbols: props.numberOfSymbols
 		}
 
@@ -34,52 +34,39 @@ const TextProcessing = (props) => {
 			.catch(error => console.error('Ошибка:', error));
 	}
 
-	let onTextChange = () => {
-		let text = inputText.current.value;
+	let inputText = React.createRef();
+
+	let onInputChange = () => {
+		let text = inputText.current.value
 		props.changeTextToProcess(text)
 		// console.log(text);
 	}
 
 	let inputNumber = React.createRef();
-	let onDropdownChange = () => {
-		let selectedNumber = inputNumber.current.value
-		props.changeNumberOfSentencesToProcess(selectedNumber)
+
+	let onDropdownChange = (event) => {
+		let selectedNumberOfSentences = event.value
+		console.log("this is: " + selectedNumberOfSentences)
+		props.changeNumberOfSentencesToProcess(selectedNumberOfSentences)
 	}
 
-	let options = [
-		{ label: 1 },
-		{ label: 2 },
-		{ label: 3 },
-		{ label: 4 },
-	]
-	let customStyles = {
-		option: (provided, state) => ({
-			...provided,
-			borderBottom: '1px dotted pink',
-			color: state.isSelected ? 'red' : 'blue',
-			padding: 10,
-		  }),
-		container: () => ({
-			width: "100%"
-		}),
-		control: () => ({
-			// none of react-select's styles are passed to <Control />
-			width: "100%",
-		}),
-		indicatorsContainer: () => ({
-			width: "100%",
-			border: '1px solid rgba(0,0,0,0.2)',
-			borderRadius: '3px',
-		}),
-		// menu: () => ({
-		// 	width: "inherit",
-		// }),
-		singleValue: (provided, state) => {
-		const opacity = state.isDisabled ? 0.5 : 1;
-		const transition = 'opacity 300ms';
+	// ?????????????????????????
+	let setInput = () => {
+		return {children: props.numberOfSentencesToProcess}
+	}
+
+	let options = props.dropdownOptions;
 	
-		return { ...provided, opacity, transition };
-		}
+	const customControlStyles = {
+		control: (base) => ({
+			...base,
+			height: 50,
+		}),
+		menuList: (base) => ({
+			...base,
+			maxHeight: 160,
+		})
+		
 	}
 
 	return (
@@ -93,35 +80,29 @@ const TextProcessing = (props) => {
 				<div className="col">
 					<div className={s.box}>
 						<p className={s.heading}>1. Put your text here</p>
-						<textarea ref={inputText} onChange={onTextChange} value={props.textToProcess} />
+						<textarea ref={inputText} onChange={onInputChange} value={props.textToProcess} />
 					</div>
 					<div className={s.box}>
 						<p className={s.heading}>2. How many sentences you want to get?</p>
 						<div className="row no-gutters">
 							<div className="col">
-								<div className="row no-gutters">
 									<Select
-										// className={s.input}
-										styles={customStyles}
-
+										styles={customControlStyles}
 										options={options}
 										ref={inputNumber}
-										// value={"Default"}
-										placeholder={"Select number of sentences"}
-										// isSearchable={false}
-										// keepSelectedInList={false}
-										// addPlaceholder={"Number of sentences"}
-										// onChange={(values) => this.onChange(values)}
+
+										singleValue={setInput} //Не робэ ?????
+										onInputChange={props.numberOfSentencesToProcess} // ?????
+
 										onChange={onDropdownChange}
+										menuPlacement = "top"
+										// value={props.numberOfSentencesToProcess}
 									/>
-								</div>
 							</div>
 							<div className="col">
 								<button type="button" onClick={sendRequest} className={`btn btn-outline-primary`}>Get summary</button>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 				<div className="col">

@@ -3,8 +3,6 @@ import 'bootstrap';
 import './App.css';
 import Header from './components/Header/Header';
 import Main from './components/Content/Main/Main';
-// import Dialogs from './components/Content/Dialogs/Dialogs';
-import Navbar from './components/Navbar/Navbar';
 import Settings from './components/Content/Settings/Settings';
 import Footer from './components/Footer/Footer';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
@@ -19,7 +17,6 @@ const App = (props) => {
 				</div>
 				<div className="contentWrapper">
 					<div className="adSenseContainer">ADSENSE 1</div>
-					{/* <Navbar friendsPreview={props.state.navbar.friendsPreview} /> */}
 					<div className="contentContainer">
 						<Route path="/main"
 							render={() => <Main

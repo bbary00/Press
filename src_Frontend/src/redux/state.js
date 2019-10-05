@@ -1,12 +1,12 @@
 
 let state = {
-    navbar: {
-        friendsPreview: [
-            { id: 4 },
-            { id: 5 },
-            { id: 6 }
-        ]
-    },
+    // navbar: {
+    //     friendsPreview: [
+    //         { id: 4 },
+    //         { id: 5 },
+    //         { id: 6 }
+    //     ]
+    // },
 
     mainPage: {
         allSentences: [],
@@ -14,52 +14,13 @@ let state = {
         numberOfSentences: 0,
 
         textToProcess: '',
-        numberOfSentencesToProcess: undefined,
+        maxNumberOfSentencesToChoose: undefined,
+        dropdownOptions: [],
+        numberOfSentencesToProcess: 'Select',
 
         textSummarized: []
     },
-    dialogsPage: {
-        dialogsData: [
-            { id: 2, name: 'Sherlock Holmes' },
-            { id: 3, name: 'Neutury' },
-            { id: 4, name: 'Mrs. Hudson' },
-            { id: 5, name: 'Agent Smith' },
-            { id: 6, name: 'Collin McMerfy' },
-            { id: 7, name: 'Benjamin Gabin' }
-        ],
-        messagesData: [
-            [
-                { sender: 1, userId: 2, id: 1, message: 'How often have I said that when you have excluded the impossible whatever remains, however improbable, must be the truth.' },
-                { sender: 0, userId: 1, id: 2, message: 'What?' },
-                { sender: 1, userId: 2, id: 3, message: 'You know my methods, Max' },
-                { sender: 1, userId: 2, id: 4, message: 'Never trust to general impressions, my boy, but concentrate yourself upon details.' },
-                { sender: 0, userId: 1, id: 5, message: 'Thank you mr Holmes' }
-            ],
-            [
-                { sender: 1, userId: 3, id: 1, message: 'Hi=)' },
-                { sender: 1, userId: 3, id: 2, message: 'Lets go to the cinema today?' },
-                { sender: 1, userId: 3, id: 3, message: 'mmm? ;)' },
-            ],
-            [
-                { sender: 1, userId: 4, id: 1, message: 'Great day to drink some tea!)' },
-                { sender: 1, userId: 4, id: 2, message: 'Isn`t it?' }
-            ],
-            [
-                { sender: 1, userId: 5, id: 1, message: 'Never send a human to do a machine`s job.' },
-                { sender: 0, userId: 1, id: 2, message: 'And who are you mr Smith?' },
-                { sender: 1, userId: 5, id: 3, message: 'Doesn`t matter.' }
-            ],
-            [
-                { sender: 0, userId: 1, id: 1, message: 'Hohoho!' },
-                { sender: 1, userId: 6, id: 2, message: 'Bla bla?' },
-                { sender: 0, userId: 1, id: 3, message: 'Gusto, could you please send invitation to all members?' }
-            ],
-            [
-                { sender: 0, userId: 1, id: 1, message: 'Hohoho!' },
-                { sender: 1, userId: 7, id: 2, message: 'Bla bla?' },
-            ]
-        ]
-    },
+    
 }
 
 window.state = state; // Allow to check state objects from console. Just enter "state" and object you want to find
@@ -72,7 +33,7 @@ export const changeTextToProcess = (text) => {    // 0. Calls every time user en
 
 export const changeNumberOfSentencesToProcess = (number) => {
     state.mainPage.numberOfSentencesToProcess = number;
-    console.log(number);
+    console.log("changeNumberOfSentencesToProcess() => " + number);
     reRenderEntireTree(state);
 }
 
@@ -92,11 +53,41 @@ export let splitAndCalculateSentences = (text) => {
     } else {
         state.mainPage.numberOfSentences = state.mainPage.allSentences.length;
     };
-    console.log(sentences);
-    console.log('Text length: ' + text.length)
-    console.log('All sentences: ' + state.mainPage.allSentences);
-    console.log('Number of sentences: ' + state.mainPage.numberOfSentences);
+    countMaximumNumberOfSentencesToChoose(state.mainPage.numberOfSentences);
+    createArrayOfLabelsForDropdown(state.mainPage.maxNumberOfSentencesToChoose);
+    // console.log(sentences);
+    // console.log('Text length: ' + text.length)
+    // console.log('All sentences: ' + state.mainPage.allSentences);
+    // console.log('Number of sentences: ' + state.mainPage.numberOfSentences);
 };
+
+
+
+const countMaximumNumberOfSentencesToChoose = (number) => {
+    let half = Math.round(number / 2);
+    console.log(half);
+    if (half < 10) {
+        state.mainPage.maxNumberOfSentencesToChoose = half;
+    } else {
+        state.mainPage.maxNumberOfSentencesToChoose = 10;
+    }
+}
+
+const createArrayOfLabelsForDropdown = (number) => {
+    
+    if (number) {
+
+        state.mainPage.dropdownOptions = []
+
+        for ( let e = 0; e <= number ; e++) {
+            let item = { label: e+1, value: e+1 }
+            state.mainPage.dropdownOptions.push(item)
+            // console.log(state.mainPage.dropdownOptions);
+        }
+    } else {
+        return false;
+    }
+}
 
 export const addSentencesFromSummarizedText = (data) => {
     state.mainPage.textSummarized = [];
@@ -118,17 +109,17 @@ export const addSentencesFromSummarizedText = (data) => {
 //     reRenderEntireTree(state);
 // };
 
-export const addMessage = (dialogId, sender, userId, messageId, text) => {
-    let newMessage = {
-        sender: sender,
-        userId: userId,
-        id: messageId,
-        message: text
-    };
-    var dialogId = dialogId - 1;
-    state.dialogsPage.messagesData[dialogId].push(newMessage);
-    reRenderEntireTree(state);
-};
+// export const addMessage = (dialogId, sender, userId, messageId, text) => {
+//     let newMessage = {
+//         sender: sender,
+//         userId: userId,
+//         id: messageId,
+//         message: text
+//     };
+//     var dialogId = dialogId - 1;
+//     state.dialogsPage.messagesData[dialogId].push(newMessage);
+//     reRenderEntireTree(state);
+// };
 
 // let getDataFromServer = () => {
 //     axios.post('/api/test/', {"dataRequest": "mainPage"}).then((response) => state.main)
