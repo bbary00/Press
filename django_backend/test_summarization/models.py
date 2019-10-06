@@ -12,7 +12,7 @@ class UserAccount(models.Model):
 
 class SummarizedText(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user_id = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
     full_text = models.TextField(default=None)
     summarized_text = models.TextField(default=None)
     summarized_text_length_in_percentage = models.FloatField(default=None)
