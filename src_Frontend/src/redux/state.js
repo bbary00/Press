@@ -33,7 +33,7 @@ export const changeTextToProcess = (text) => {    // 0. Calls every time user en
 
 export const changeNumberOfSentencesToProcess = (number) => {
     state.mainPage.numberOfSentencesToProcess = number;
-    console.log("changeNumberOfSentencesToProcess() => " + number);
+    console.log("numberOfSentencesToProcess = " + state.mainPage.numberOfSentencesToProcess);
     reRenderEntireTree(state);
 }
 
