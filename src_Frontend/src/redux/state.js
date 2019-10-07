@@ -17,7 +17,15 @@ let state = {
         maxNumberOfSentencesToChoose: undefined,
         dropdownOptions: [],
         numberOfSentencesToProcess: 'Select',
-
+        rangeData: {
+            maxPercentSentencesToProcess: 100,
+            minPercentSentencesToProcess: 0,
+            oneStepInRange: undefined,
+            percentOfSentencesToProcess: { currentValue: 0 },
+        },
+        
+        
+        
         textSummarized: []
     },
     
@@ -34,7 +42,30 @@ export const changeTextToProcess = (text) => {    // 0. Calls every time user en
 export const changeNumberOfSentencesToProcess = (number) => {
     state.mainPage.numberOfSentencesToProcess = number;
     console.log("numberOfSentencesToProcess = " + state.mainPage.numberOfSentencesToProcess);
+    changePercentOfSentencesToProcess();
+    // debugger;
     reRenderEntireTree(state);
+}
+
+export const changePercentOfSentencesToProcess = () => {
+    // define one step value --> 100% / maximum number of sentences to choose
+    state.mainPage.rangeData.oneStepInRange = Math.round(state.mainPage.rangeData.maxPercentSentencesToProcess / state.mainPage.maxNumberOfSentencesToChoose)
+    console.log('One step in range = ' + state.mainPage.rangeData.oneStepInRange)
+    let totalSteps = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
+    
+    // Hack - to show maximum value in range input when chosen max value in dropdown
+    
+    if (totalSteps > state.mainPage.rangeData.maxPercentSentencesToProcess && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
+        state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = state.mainPage.rangeData.maxPercentSentencesToProcess
+    } else if (totalSteps < state.mainPage.rangeData.maxPercentSentencesToProcess && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
+        state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = state.mainPage.rangeData.maxPercentSentencesToProcess
+    } else {
+        state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
+    }
+    
+    // set new value to InputRange
+    console.log('percentOfSentencesToProcess = ' + state.mainPage.rangeData.percentOfSentencesToProcess.currentValue +'%')
+    
 }
 
 export let splitAndCalculateSentences = (text) => {
@@ -48,11 +79,16 @@ export let splitAndCalculateSentences = (text) => {
     };
     state.mainPage.allSentences = sentences;
     state.mainPage.numberOfSymbols = text.length;
-    if (text[text.length - 1] !== /\s/g) {
-        state.mainPage.numberOfSentences = state.mainPage.allSentences.length + 1;
-    } else {
+    // console.log('numberOfSentences = ' + state.mainPage.allSentences.length)
+    
+    if (/\s$/.test(text)) {
         state.mainPage.numberOfSentences = state.mainPage.allSentences.length;
+        // console.log('first if is worked')
+    } else {
+        state.mainPage.numberOfSentences = state.mainPage.allSentences.length + 1;
+        // console.log('second if is worked')
     };
+    // console.log('numberOfSentences after if = ' + state.mainPage.numberOfSentences)
     countMaximumNumberOfSentencesToChoose(state.mainPage.numberOfSentences);
     createArrayOfLabelsForDropdown(state.mainPage.maxNumberOfSentencesToChoose);
     // console.log(sentences);
@@ -64,8 +100,11 @@ export let splitAndCalculateSentences = (text) => {
 
 
 const countMaximumNumberOfSentencesToChoose = (number) => {
-    let half = Math.round(number / 2);
-    console.log(half);
+    let value = number / 2;
+    console.log('numberOfSentences / 2 = ' + value);
+    let half = Math.floor(value);
+    
+    console.log('numberOfSentences / 2 and floor()= ' + half);
     if (half < 10) {
         state.mainPage.maxNumberOfSentencesToChoose = half;
     } else {
@@ -79,7 +118,7 @@ const createArrayOfLabelsForDropdown = (number) => {
 
         state.mainPage.dropdownOptions = []
 
-        for ( let e = 0; e <= number ; e++) {
+        for ( let e = 0; e < number ; ++e) {
             let item = { label: e+1, value: e+1 }
             state.mainPage.dropdownOptions.push(item)
             // console.log(state.mainPage.dropdownOptions);

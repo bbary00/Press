@@ -18,6 +18,7 @@ const Main = (props) => {
 				numberOfSentencesToProcess={props.mainPage.numberOfSentencesToProcess}
 				changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 				dropdownOptions={props.mainPage.dropdownOptions}
+				rangeData={props.mainPage.rangeData}
 			/>
 		</div>
 	)

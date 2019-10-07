@@ -18,6 +18,13 @@ input {
     width: 100%;
 };
   
+input:hover {
+    cursor: pointer;
+}
+.hover:hover {
+    cursor: pointer;
+}
+
 input[type=range] {
     height: 25px;
     -webkit-appearance: none;

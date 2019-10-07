@@ -5,7 +5,7 @@ import Select from 'react-select';
 import ProcessingSettings from "./ProcessingSettings/ProcessingSettings";
 
 const TextProcessing = (props) => {
-
+	// debugger;
 	let summarizedTextElements = props.textSummarized.map(item => <SentenceTemplate title={item.id} text={item.text} />);
 
 	let sendRequest = () => {
@@ -40,7 +40,7 @@ const TextProcessing = (props) => {
 		let text = inputText.current.value
 		props.changeTextToProcess(text)
 	}
-
+	
 	return (
 		<div>
 			<div className="row no-gutters">
@@ -62,11 +62,12 @@ const TextProcessing = (props) => {
 									numberOfSentencesToProcess={props.numberOfSentencesToProcess}
 									changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 									dropdownOptions={props.dropdownOptions}
+									rangeData={props.rangeData}
 								/>
 							</div>
 							<div className="col">
 
-								<button type="button" onClick={sendRequest} className={`btn btn-outline-primary`}>Get summary</button>
+								<button type="button" onClick={sendRequest} className={`btn btn-outline-primary ${s.btnMain}`}>Get summary</button>
 							</div>
 						</div>
 					</div>

@@ -37,6 +37,11 @@ button {
   height: 50px;
   width: 150px;
 }
+
+.btnMain:hover {
+  cursor: pointer;
+}
+
 button:hover {
   cursor: pointer;
 }

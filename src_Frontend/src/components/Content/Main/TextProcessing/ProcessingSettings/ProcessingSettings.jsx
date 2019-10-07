@@ -6,7 +6,8 @@ import 'react-input-range/lib/css/index.css';
 
 const ProcessingSettings = (props) => {
 
-    let inputNumber = React.createRef();
+    // debugger;
+    // let inputNumber = React.createRef();
 
     let onDropdownChange = (event) => {
         let selectedNumberOfSentences = event.value
@@ -19,16 +20,6 @@ const ProcessingSettings = (props) => {
         value: props.numberOfSentencesToProcess,
         label: props.numberOfSentencesToProcess
     };
-
-    let onRangeChange = (event) => {
-        let selectedPercentOfSentences = event.value
-        console.log("selectedPercentOfSentences = " + selectedPercentOfSentences)
-    }
-
-    // let currentRangeValue = 35
-    // let changeRangeValue = (event) => {
-    //     currentRangeValue = event.target.value
-    // }
 
     let options = props.dropdownOptions;
 
@@ -58,20 +49,29 @@ const ProcessingSettings = (props) => {
 
     }
 
-    let rangeValue = {
-        currentValue: 15
+    let onRangeChange = (event) => {
+        let selectedPercentOfSentences = event.value
+        console.log("selectedPercentOfSentences = " + selectedPercentOfSentences)
     }
+    
+    let percentOfSentencesToProcess = props.rangeData.percentOfSentencesToProcess.currentValue;
+    
+    let rangeValue = {
+        currentValue: percentOfSentencesToProcess
+    }
+    // debugger;
     let setRangeValue = (obj) => {
-        debugger;
+        // debugger;
         rangeValue = obj
     }
 
     return (
         <div>
             <Select
+                className={s.hover}
                 styles={customControlStyles}
                 options={options}
-                ref={inputNumber}
+                // ref={inputNumber}
                 value={selectedValue}
                 onChange={onDropdownChange.bind(this)}
                 menuPlacement="top" />
@@ -80,8 +80,8 @@ const ProcessingSettings = (props) => {
             <div className={s.rangeBlock}>
 
                 <InputRange
-                    maxValue={20}
-                    minValue={0}
+                    maxValue={props.rangeData.maxPercentSentencesToProcess}
+                    minValue={props.rangeData.minPercentSentencesToProcess}
                     value={rangeValue.currentValue}
                     onChange={value => setRangeValue({ currentValue: value })} 
                     onChangeComplete={value => console.log(value)} />
