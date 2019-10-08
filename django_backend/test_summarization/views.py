@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .deep_backend.Press import Press
+from test_summarization.tasks import summarize_text
 
 
 @api_view(['GET'])
@@ -23,7 +24,7 @@ class TextSummarizedApi(APIView):
         number_of_sentences = int(request.data.get('number_of_sentences')) if request.data.get('number_of_sentences') else None
         summarized_text = Press(original_text, number_of_sentences)
         index_sentence_dict = [{'id': index+1, 'text': sentence} for (index, sentence) in enumerate(summarized_text)]
-
+        # summarize_text.apply_async(args=[original_text, number_of_sentences])
         return Response({'summary_text': index_sentence_dict})
 
 
