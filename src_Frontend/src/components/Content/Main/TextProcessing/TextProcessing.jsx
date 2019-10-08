@@ -62,6 +62,7 @@ const TextProcessing = (props) => {
 									numberOfSentencesToProcess={props.numberOfSentencesToProcess}
 									changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 									changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
+									moveRangeToClosestStep={props.moveRangeToClosestStep}
 									dropdownOptions={props.dropdownOptions}
 									rangeData={props.rangeData}
 								/>

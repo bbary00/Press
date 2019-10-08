@@ -25,6 +25,7 @@ const App = (props) => {
 								changeTextToProcess={props.changeTextToProcess}
 								changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 								changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
+								moveRangeToClosestStep={props.moveRangeToClosestStep}
 								splitAndCalculateSentences={props.splitAndCalculateSentences}
 							/>} 
 						/>

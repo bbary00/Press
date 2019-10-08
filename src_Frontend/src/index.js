@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
 import state from './redux/state';
-import { subscribe, addSentencesFromSummarizedText, changeTextToProcess, changeNumberOfSentencesToProcess, changePercentOfSentencesToProcess, splitAndCalculateSentences } from './redux/state';
+import { subscribe, addSentencesFromSummarizedText, changeTextToProcess, changeNumberOfSentencesToProcess, changePercentOfSentencesToProcess, moveRangeToClosestStep, splitAndCalculateSentences } from './redux/state';
 
 
 let reRenderEntireTree = (state) => {
@@ -16,6 +16,7 @@ let reRenderEntireTree = (state) => {
             splitAndCalculateSentences={splitAndCalculateSentences} 
             changeTextToProcess={changeTextToProcess} 
             changePercentOfSentencesToProcess={changePercentOfSentencesToProcess}
+            moveRangeToClosestStep={moveRangeToClosestStep}
             changeNumberOfSentencesToProcess={changeNumberOfSentencesToProcess} />, document.getElementById('root'));
 }
 

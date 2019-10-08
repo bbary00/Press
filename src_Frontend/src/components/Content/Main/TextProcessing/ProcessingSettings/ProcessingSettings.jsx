@@ -6,8 +6,7 @@ import 'react-input-range/lib/css/index.css';
 
 const ProcessingSettings = (props) => {
 
-    debugger;
-    // let inputNumber = React.createRef();
+    // debugger;
 
     let onDropdownChange = (event) => {
         let selectedNumberOfSentences = event.value
@@ -16,6 +15,7 @@ const ProcessingSettings = (props) => {
         // debugger;
     }
 
+    // Before rendering html
     let selectedValue = {
         value: props.numberOfSentencesToProcess,
         label: props.numberOfSentencesToProcess
@@ -23,11 +23,10 @@ const ProcessingSettings = (props) => {
 
     let options = props.dropdownOptions;
 
+    // Styles for Dropdown input
     const customControlStyles = {
         control: (base) => ({
             ...base,
-            // height: 50,
-            
         }),
         menuList: (base) => ({
             ...base,
@@ -45,26 +44,28 @@ const ProcessingSettings = (props) => {
                 marginTop: 0
             })
         })
-        
-
     }
 
-    let onRangeChange = (event) => {
-        let selectedPercentOfSentences = event.value
-        console.log("selectedPercentOfSentences = " + selectedPercentOfSentences)
+    // Before rendering html
+    let rangeValue = props.rangeData.percentOfSentencesToProcess
+
+    // Disabling range if there is no data to choose
+    let rangeIsDisabled = () => {
+        if (props.dropdownOptions.length === 0) {
+            return true
+        } else {
+            return false
+        }
     }
-    
-    let percentOfSentencesToProcess = props.rangeData.percentOfSentencesToProcess.currentValue;
-    
-    let rangeValue = {
-        currentValue: percentOfSentencesToProcess
-    }
-    // debugger;
+
+    // When scrolling the range
     let changeRangeValue = (value) => {
-        debugger;
+        // debugger;
         props.changePercentOfSentencesToProcess(value)
-        
-        
+    }
+    // When scroll is finished 
+    let moveToClosestStep = (value) => {
+        props.moveRangeToClosestStep(value)
     }
 
     return (
@@ -77,18 +78,14 @@ const ProcessingSettings = (props) => {
                 value={selectedValue}
                 onChange={onDropdownChange.bind(this)}
                 menuPlacement="top" />
-            
-
             <div className={s.rangeBlock}>
-
                 <InputRange
+                    disabled={rangeIsDisabled()}
                     maxValue={props.rangeData.maxPercentSentencesToProcess}
                     minValue={props.rangeData.minPercentSentencesToProcess}
-                    value={rangeValue.currentValue}
-                    onChange={value => changeRangeValue({ currentValue: value })} 
-                    onChangeComplete={value => console.log(value)} />
-
-                {/* <input type="range" min="0" max="50" step="1" value={currentRangeValue} onchange={changeRangeValue}></input> */}
+                    value={rangeValue}
+                    onChange={value => changeRangeValue(value)} 
+                    onChangeComplete={value => moveToClosestStep(value)} />
             </div>
         </div>
 

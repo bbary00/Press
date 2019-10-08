@@ -13,8 +13,8 @@ let state = {
         rangeData: {
             maxPercentSentencesToProcess: 100,
             minPercentSentencesToProcess: 0,
-            oneStepInRange: undefined,
-            percentOfSentencesToProcess: { currentValue: 0 },
+            oneStepInRange: 0,
+            percentOfSentencesToProcess: 0,
         },
         
         textSummarized: []
@@ -38,8 +38,25 @@ export const changeNumberOfSentencesToProcess = (number) => {
 }
 
 export const changePercentOfSentencesToProcess = (value) => {
-    state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = value.currentValue
+    state.mainPage.rangeData.percentOfSentencesToProcess = value
     reRenderEntireTree(state)
+}
+
+export const moveRangeToClosestStep = (value) => {
+    console.log('Range drag is finished on value ' + value );
+    let checkPoints = []
+    for ( let step = 0; step <= 100; step + state.mainPage.rangeData.oneStepInRange) {
+        // debugger;
+        if (step < 100) {
+            checkPoints.push(step)
+        } else {
+            break
+        }
+    }
+    console.log(checkPoints);
+    let closest = checkPoints.sort( (a, b) => Math.abs(value - a) - Math.abs(value - b) )[0];
+    console.log('Closest checkpoint = ' + closest)
+    reRenderEntireTree(state);
 }
 
 export const setPercentOfSentencesToProcess = () => {
@@ -51,15 +68,15 @@ export const setPercentOfSentencesToProcess = () => {
     // Hack - to show maximum value in range input when chosen max value in dropdown
     
     if (totalSteps > state.mainPage.rangeData.maxPercentSentencesToProcess && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
-        state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = state.mainPage.rangeData.maxPercentSentencesToProcess
+        state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.maxPercentSentencesToProcess
     } else if (totalSteps < state.mainPage.rangeData.maxPercentSentencesToProcess && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
-        state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = state.mainPage.rangeData.maxPercentSentencesToProcess
+        state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.maxPercentSentencesToProcess
     } else {
-        state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
+        state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
     }
     
     // set new value to InputRange
-    console.log('percentOfSentencesToProcess = ' + state.mainPage.rangeData.percentOfSentencesToProcess.currentValue +'%')
+    console.log('percentOfSentencesToProcess = ' + state.mainPage.rangeData.percentOfSentencesToProcess +'%')
     
 }
 
