@@ -6,7 +6,7 @@ import 'react-input-range/lib/css/index.css';
 
 const ProcessingSettings = (props) => {
 
-    // debugger;
+    debugger;
     // let inputNumber = React.createRef();
 
     let onDropdownChange = (event) => {
@@ -60,9 +60,11 @@ const ProcessingSettings = (props) => {
         currentValue: percentOfSentencesToProcess
     }
     // debugger;
-    let setRangeValue = (obj) => {
-        // debugger;
-        rangeValue = obj
+    let changeRangeValue = (value) => {
+        debugger;
+        props.changePercentOfSentencesToProcess(value)
+        
+        
     }
 
     return (
@@ -83,7 +85,7 @@ const ProcessingSettings = (props) => {
                     maxValue={props.rangeData.maxPercentSentencesToProcess}
                     minValue={props.rangeData.minPercentSentencesToProcess}
                     value={rangeValue.currentValue}
-                    onChange={value => setRangeValue({ currentValue: value })} 
+                    onChange={value => changeRangeValue({ currentValue: value })} 
                     onChangeComplete={value => console.log(value)} />
 
                 {/* <input type="range" min="0" max="50" step="1" value={currentRangeValue} onchange={changeRangeValue}></input> */}

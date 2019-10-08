@@ -24,6 +24,7 @@ const App = (props) => {
 								addSentencesFromSummarizedText={props.addSentencesFromSummarizedText}
 								changeTextToProcess={props.changeTextToProcess}
 								changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
+								changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
 								splitAndCalculateSentences={props.splitAndCalculateSentences}
 							/>} 
 						/>

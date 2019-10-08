@@ -1,13 +1,6 @@
 
 let state = {
-    // navbar: {
-    //     friendsPreview: [
-    //         { id: 4 },
-    //         { id: 5 },
-    //         { id: 6 }
-    //     ]
-    // },
-
+    
     mainPage: {
         allSentences: [],
         numberOfSymbols: 0,
@@ -24,11 +17,8 @@ let state = {
             percentOfSentencesToProcess: { currentValue: 0 },
         },
         
-        
-        
         textSummarized: []
     },
-    
 }
 
 window.state = state; // Allow to check state objects from console. Just enter "state" and object you want to find
@@ -42,12 +32,17 @@ export const changeTextToProcess = (text) => {    // 0. Calls every time user en
 export const changeNumberOfSentencesToProcess = (number) => {
     state.mainPage.numberOfSentencesToProcess = number;
     console.log("numberOfSentencesToProcess = " + state.mainPage.numberOfSentencesToProcess);
-    changePercentOfSentencesToProcess();
+    setPercentOfSentencesToProcess();
     // debugger;
     reRenderEntireTree(state);
 }
 
-export const changePercentOfSentencesToProcess = () => {
+export const changePercentOfSentencesToProcess = (value) => {
+    state.mainPage.rangeData.percentOfSentencesToProcess.currentValue = value.currentValue
+    reRenderEntireTree(state)
+}
+
+export const setPercentOfSentencesToProcess = () => {
     // define one step value --> 100% / maximum number of sentences to choose
     state.mainPage.rangeData.oneStepInRange = Math.round(state.mainPage.rangeData.maxPercentSentencesToProcess / state.mainPage.maxNumberOfSentencesToChoose)
     console.log('One step in range = ' + state.mainPage.rangeData.oneStepInRange)
@@ -134,35 +129,7 @@ export const addSentencesFromSummarizedText = (data) => {
     reRenderEntireTree(state);
 };
 
-// export const addSentencesFromSummarizedText = (data) => {
-//     let id = state.mainPage.textSummarized[state.mainPage.textSummarized.length - 1].id + 1;
-//     let newSentence = {
-//         id: id,
-//         title: 'default',
-//         text: data,
-//         // text: state.mainPage.textToProcess,
-//         likes: 0
-//     };
-//     state.mainPage.textSummarized.push(newSentence);
-//     // state.mainPage.textToProcess = '';    // Set default empty string value to an object "newTextValue"
-//     reRenderEntireTree(state);
-// };
 
-// export const addMessage = (dialogId, sender, userId, messageId, text) => {
-//     let newMessage = {
-//         sender: sender,
-//         userId: userId,
-//         id: messageId,
-//         message: text
-//     };
-//     var dialogId = dialogId - 1;
-//     state.dialogsPage.messagesData[dialogId].push(newMessage);
-//     reRenderEntireTree(state);
-// };
-
-// let getDataFromServer = () => {
-//     axios.post('/api/test/', {"dataRequest": "mainPage"}).then((response) => state.main)
-// }
 
 let reRenderEntireTree = (state) => {}
 

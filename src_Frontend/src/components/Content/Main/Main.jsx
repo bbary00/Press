@@ -17,6 +17,8 @@ const Main = (props) => {
 
 				numberOfSentencesToProcess={props.mainPage.numberOfSentencesToProcess}
 				changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
+				changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
+
 				dropdownOptions={props.mainPage.dropdownOptions}
 				rangeData={props.mainPage.rangeData}
 			/>
