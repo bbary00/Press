@@ -12,11 +12,13 @@ const Main = (props) => {
 				textSummarized={props.mainPage.textSummarized}
 				addSentencesFromSummarizedText={props.addSentencesFromSummarizedText}
 				textToProcess={props.mainPage.textToProcess}
-				numberOfSentencesToProcess={props.mainPage.numberOfSentencesToProcess}
 				changeTextToProcess={props.changeTextToProcess}
-				changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 				splitAndCalculateSentences={props.splitAndCalculateSentences}
+
+				numberOfSentencesToProcess={props.mainPage.numberOfSentencesToProcess}
+				changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 				dropdownOptions={props.mainPage.dropdownOptions}
+				rangeData={props.mainPage.rangeData}
 			/>
 		</div>
 	)

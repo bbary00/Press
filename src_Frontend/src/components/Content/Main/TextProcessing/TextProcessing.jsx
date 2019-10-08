@@ -2,14 +2,10 @@ import React from 'react';
 import s from './TextProcessing.module.css';
 import SentenceTemplate from './SentenceTemplate/SentenceTemplate';
 import Select from 'react-select';
-import { Range, getTrackBackground } from "react-range";
-
-const STEP = 0.1;
-const MIN = 0;
-const MAX = 100;
+import ProcessingSettings from "./ProcessingSettings/ProcessingSettings";
 
 const TextProcessing = (props) => {
-
+	// debugger;
 	let summarizedTextElements = props.textSummarized.map(item => <SentenceTemplate title={item.id} text={item.text} />);
 
 	let sendRequest = () => {
@@ -43,50 +39,8 @@ const TextProcessing = (props) => {
 	let onInputTextChange = () => {
 		let text = inputText.current.value
 		props.changeTextToProcess(text)
-		// console.log(text);
-
 	}
-
-	let inputNumber = React.createRef();
-
-	let onDropdownChange = (event) => {
-		let selectedNumberOfSentences = event.value
-		console.log("selectedNumberOfSentences = " + selectedNumberOfSentences)
-		props.changeNumberOfSentencesToProcess(selectedNumberOfSentences)
-		// debugger;
-	}
-
-	let selectedValue = {
-		value: props.numberOfSentencesToProcess,
-		label: props.numberOfSentencesToProcess
-	};
-
-	let onRangeChange = (event) => {
-		let selectedPercentOfSentences = event.value
-		console.log("selectedPercentOfSentences = " + selectedPercentOfSentences)
-	}
-
-	let currentRangeValue = 35
-	let changeRangeValue = (event) => {
-		currentRangeValue = event.target.value
-	}
-
-	let options = props.dropdownOptions;
-
-	const customControlStyles = {
-		control: (base) => ({
-			...base,
-			height: 50,
-		}),
-		menuList: (base) => ({
-			...base,
-			maxHeight: 160,
-		})
-
-	}
-
-
-
+	
 	return (
 		<div>
 			<div className="row no-gutters">
@@ -104,30 +58,16 @@ const TextProcessing = (props) => {
 						<p className={s.heading}>2. How many sentences you want to get?</p>
 						<div className="row no-gutters">
 							<div className="col">
-								<Select
-									styles={customControlStyles}
-									options={options}
-									ref={inputNumber}
-									value={selectedValue}
-									onChange={onDropdownChange.bind(this)}
-									menuPlacement="top"
-								// value={props.numberOfSentencesToProcess}
+								<ProcessingSettings 
+									numberOfSentencesToProcess={props.numberOfSentencesToProcess}
+									changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
+									dropdownOptions={props.dropdownOptions}
+									rangeData={props.rangeData}
 								/>
-								<Select
-									styles={customControlStyles}
-									options={options}
-									ref={inputNumber}
-									value={selectedValue}
-									onChange={onDropdownChange}
-									menuPlacement="top" />
-								{/* <div className="rangeBlock">
-									<input type="range" min="0" max="50" step="1" value={currentRangeValue} onchange={changeRangeValue}></input>
-								</div> */}
-
 							</div>
 							<div className="col">
 
-								<button type="button" onClick={sendRequest} className={`btn btn-outline-primary`}>Get summary</button>
+								<button type="button" onClick={sendRequest} className={`btn btn-outline-primary ${s.btnMain}`}>Get summary</button>
 							</div>
 						</div>
 					</div>
