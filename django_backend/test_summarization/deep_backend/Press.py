@@ -1,9 +1,12 @@
 ﻿from nltk.tokenize import sent_tokenize
 from collections import defaultdict
-from .stopwords import UKRAINIAN
+from stopwords import UKRAINIAN
 from collections import Counter
-from .stemming import stem
+from stemming import stem
 import re
+
+import nltk
+nltk.download('punkt')
 
 
 def words_steam_cleaner(first_list):
@@ -55,12 +58,18 @@ def find_most_relevant_sentences(main_tokens, stemmed_sentences):
     return sentence_ranking
 
 
-def Press(text_to_press, number_of_sentences_to_output):
+def Press(text_to_press, number_of_sentences_to_output, **kwargs):
     """Main function to call"""
     stemmed_tokens, stemmed_sentences, tokened_sentences = text_preprocess(text_to_press)
     main_tokens = word_evaluation(stemmed_tokens)
     most_relevant_sentence_indexes = find_most_relevant_sentences(main_tokens, stemmed_sentences)
 
     sentence_indexes_to_output = most_relevant_sentence_indexes[:number_of_sentences_to_output]
-    sentences_to_output = [tokened_sentences[index] for index in sorted(sentence_indexes_to_output)]
-    return sentences_to_output
+    output_dict = dict({'sentences_to_output': [tokened_sentences[index]
+                                                for index in sorted(sentence_indexes_to_output)]})
+    for key, value in kwargs.items():
+        if key == 'context':
+            output_dict['context_sentences'] = [' '.join(tokened_sentences[max(0, index - value):
+                                                                           min(index+value, len(tokened_sentences))])
+                                                for index in sorted(sentence_indexes_to_output)]
+    return output_dict
