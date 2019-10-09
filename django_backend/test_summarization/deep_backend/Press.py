@@ -5,6 +5,9 @@ from collections import Counter
 from .stemming import stem
 import re
 
+import nltk
+nltk.download('punkt')
+
 
 def words_steam_cleaner(first_list):
     return Counter([stem(word) for word in first_list if word not in UKRAINIAN])
