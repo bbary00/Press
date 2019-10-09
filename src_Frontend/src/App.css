@@ -383,7 +383,7 @@ body {
 .contentWrapper {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 150px 1fr 150px;
+  grid-template-columns: 50px 1fr 50px;
   grid-gap: 5px;
   max-width: 100%;
   margin: 15px auto 0;

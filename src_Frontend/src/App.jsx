@@ -16,7 +16,7 @@ const App = (props) => {
 					<Header />
 				</div>
 				<div className="contentWrapper">
-					<div className="adSenseContainer">ADSENSE 1</div>
+					{/* <div className="adSenseContainer">ADSENSE 1</div> */}
 					<div className="contentContainer">
 						<Route path="/main"
 							render={() => <Main
@@ -40,7 +40,7 @@ const App = (props) => {
 						<Route path="/settings" render={() => <Settings />} />
 						<Redirect from="/" exact to="/main" />
 					</div>
-					<div className="adSenseContainer">ADSENSE 2</div>
+					{/* <div className="adSenseContainer">ADSENSE 2</div> */}
 				</div>
 				<div className="footerWrapper">
 					<Footer />

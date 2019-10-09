@@ -21,18 +21,35 @@ let state = {
     },
 }
 
-window.state = state; // Allow to check state objects from console. Just enter "state" and object you want to find
+
+
+// CHECK TEXT FROM INPUT
+// _____________________
 
 export const changeTextToProcess = (text) => {    // 0. Calls every time user enter symbol in text area 1. Catches total string value entered by user in text area 2. Write new value to object "textToProcess" 3. ReRender SPA
     state.mainPage.textToProcess = text;
     splitAndCalculateSentences(text);
+    countMaximumNumberOfSentencesToChoose(state.mainPage.numberOfSentences);
+    createArrayOfLabelsForDropdown(state.mainPage.maxNumberOfSentencesToChoose);
+    calculateOneStepInRange(); // define one step value --> 100% / maximum number of sentences to choose
+    
     reRenderEntireTree(state);
 };
 
+
+// DROPDOWN AND RANGE LOGIC
+// ________________________
+
+// Executing after user set value in dropdown 
 export const changeNumberOfSentencesToProcess = (number) => {
     state.mainPage.numberOfSentencesToProcess = number;
     console.log("numberOfSentencesToProcess = " + state.mainPage.numberOfSentencesToProcess);
-    setPercentOfSentencesToProcess();
+    
+    // Call function change value in range
+    // Checking if user choose max number of sentences and then write to state 100%
+
+    // setPercentOfSentencesToProcess();
+
     // debugger;
     reRenderEntireTree(state);
 }
@@ -42,43 +59,51 @@ export const changePercentOfSentencesToProcess = (value) => {
     reRenderEntireTree(state)
 }
 
+
 export const moveRangeToClosestStep = (value) => {
-    console.log('Range drag is finished on value ' + value );
+    console.log('Range drag is finished on value ' + value )
+    state.mainPage.rangeData.percentOfSentencesToProcess = value
     let checkPoints = []
-    for ( let step = 0; step <= 100; step + state.mainPage.rangeData.oneStepInRange) {
+    let oneStepValue = state.mainPage.rangeData.oneStepInRange
+    for ( let step = 0; step <= 100; ) {
         // debugger;
         if (step < 100) {
-            checkPoints.push(step)
+            checkPoints.push(step);
+            step += oneStepValue 
+            continue;
         } else {
-            break
+            console.log('Break!!!')
+            break;
         }
     }
     console.log(checkPoints);
     let closest = checkPoints.sort( (a, b) => Math.abs(value - a) - Math.abs(value - b) )[0];
     console.log('Closest checkpoint = ' + closest)
+    changePercentOfSentencesToProcess(closest);
     reRenderEntireTree(state);
 }
 
+// Checking if user choose max number of sentences and if total steps are more than 100%
+// and if so, set the 100% value, if no set current value of range
 export const setPercentOfSentencesToProcess = () => {
-    // define one step value --> 100% / maximum number of sentences to choose
-    state.mainPage.rangeData.oneStepInRange = Math.round(state.mainPage.rangeData.maxPercentSentencesToProcess / state.mainPage.maxNumberOfSentencesToChoose)
     console.log('One step in range = ' + state.mainPage.rangeData.oneStepInRange)
     let totalSteps = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
-    
     // Hack - to show maximum value in range input when chosen max value in dropdown
-    
-    if (totalSteps > state.mainPage.rangeData.maxPercentSentencesToProcess && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
-        state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.maxPercentSentencesToProcess
-    } else if (totalSteps < state.mainPage.rangeData.maxPercentSentencesToProcess && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
+    // Sets new value to InputRange
+    if (totalSteps > state.mainPage.rangeData.maxPercentSentencesToProcess || totalSteps < state.mainPage.rangeData.maxPercentSentencesToProcess  && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
         state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.maxPercentSentencesToProcess
     } else {
         state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
-    }
-    
-    // set new value to InputRange
+    } 
     console.log('percentOfSentencesToProcess = ' + state.mainPage.rangeData.percentOfSentencesToProcess +'%')
-    
 }
+
+
+
+
+
+// ANALYZE TEXT FROM INPUT
+// _______________________
 
 export let splitAndCalculateSentences = (text) => {
     let pattern = /(.+?([A-Z].)\.(?:['")\\\s][\"]?)+?\s?)/igm, match;
@@ -92,7 +117,6 @@ export let splitAndCalculateSentences = (text) => {
     state.mainPage.allSentences = sentences;
     state.mainPage.numberOfSymbols = text.length;
     // console.log('numberOfSentences = ' + state.mainPage.allSentences.length)
-    
     if (/\s$/.test(text)) {
         state.mainPage.numberOfSentences = state.mainPage.allSentences.length;
         // console.log('first if is worked')
@@ -101,22 +125,21 @@ export let splitAndCalculateSentences = (text) => {
         // console.log('second if is worked')
     };
     // console.log('numberOfSentences after if = ' + state.mainPage.numberOfSentences)
-    countMaximumNumberOfSentencesToChoose(state.mainPage.numberOfSentences);
-    createArrayOfLabelsForDropdown(state.mainPage.maxNumberOfSentencesToChoose);
     // console.log(sentences);
     // console.log('Text length: ' + text.length)
     // console.log('All sentences: ' + state.mainPage.allSentences);
     // console.log('Number of sentences: ' + state.mainPage.numberOfSentences);
 };
 
-
+const calculateOneStepInRange = () => {
+    state.mainPage.rangeData.oneStepInRange = Math.round(state.mainPage.rangeData.maxPercentSentencesToProcess / state.mainPage.maxNumberOfSentencesToChoose)
+}
 
 const countMaximumNumberOfSentencesToChoose = (number) => {
     let value = number / 2;
-    console.log('numberOfSentences / 2 = ' + value);
+    // console.log('numberOfSentences / 2 = ' + value);
     let half = Math.floor(value);
-    
-    console.log('numberOfSentences / 2 and floor()= ' + half);
+    // console.log('numberOfSentences / 2 and floor()= ' + half);
     if (half < 10) {
         state.mainPage.maxNumberOfSentencesToChoose = half;
     } else {
@@ -125,11 +148,8 @@ const countMaximumNumberOfSentencesToChoose = (number) => {
 }
 
 const createArrayOfLabelsForDropdown = (number) => {
-    
     if (number) {
-
         state.mainPage.dropdownOptions = []
-
         for ( let e = 0; e < number ; ++e) {
             let item = { label: e+1, value: e+1 }
             state.mainPage.dropdownOptions.push(item)
@@ -140,13 +160,22 @@ const createArrayOfLabelsForDropdown = (number) => {
     }
 }
 
+// RENDER SENTENCES FROM RESPONSE
+// ______________________________
+
 export const addSentencesFromSummarizedText = (data) => {
     state.mainPage.textSummarized = [];
     data.summary_text.map(item => state.mainPage.textSummarized.push(item));
     reRenderEntireTree(state);
 };
 
+// Allow to check state objects from console. Just enter "state" and object you want to find
+// _________________________________________________________________________________________
 
+window.state = state; 
+
+// OBSERVER PATTERN
+// ________________
 
 let reRenderEntireTree = (state) => {}
 

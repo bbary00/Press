@@ -10,7 +10,7 @@ const ProcessingSettings = (props) => {
 
     let onDropdownChange = (event) => {
         let selectedNumberOfSentences = event.value
-        console.log("selectedNumberOfSentences = " + selectedNumberOfSentences)
+        // console.log("selectedNumberOfSentences = " + selectedNumberOfSentences)
         props.changeNumberOfSentencesToProcess(selectedNumberOfSentences)
         // debugger;
     }

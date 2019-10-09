@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './TextProcessing.module.css';
 import SentenceTemplate from './SentenceTemplate/SentenceTemplate';
-import Select from 'react-select';
 import ProcessingSettings from "./ProcessingSettings/ProcessingSettings";
 
 const TextProcessing = (props) => {
