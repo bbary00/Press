@@ -14,6 +14,7 @@ let state = {
             maxPercentSentencesToProcess: 100,
             minPercentSentencesToProcess: 0,
             oneStepInRange: 0,
+            checkPoints: [],
             percentOfSentencesToProcess: 0,
         },
         
@@ -32,7 +33,7 @@ export const changeTextToProcess = (text) => {    // 0. Calls every time user en
     countMaximumNumberOfSentencesToChoose(state.mainPage.numberOfSentences)
     createArrayOfLabelsForDropdown(state.mainPage.maxNumberOfSentencesToChoose)
     calculateOneStepInRange() // define one step value --> 100% / maximum number of sentences to choose
-    
+    createCheckpointsForRange()
     reRenderEntireTree(state)
 };
 
@@ -64,21 +65,7 @@ export const changePercentOfSentencesToProcess = (value) => {
 export const moveRangeToClosestStep = (value) => {
     console.log('Range drag is finished on value ' + value )
     state.mainPage.rangeData.percentOfSentencesToProcess = value
-    let checkPoints = []
-    let oneStepValue = state.mainPage.rangeData.oneStepInRange
-    for ( let step = 0; step <= 100; ) {
-        // debugger;
-        if (step <= 100) {
-            checkPoints.push(step)
-            step += oneStepValue 
-            continue;
-        } else {
-            console.log('Break!!!')
-            break;
-        }
-    }
-    console.log(checkPoints)
-    let closest = checkPoints.sort( (a, b) => Math.abs(value - a) - Math.abs(value - b) )[0]
+    let closest = state.mainPage.rangeData.checkPoints.sort( (a, b) => Math.abs(value - a) - Math.abs(value - b) )[0]
     console.log('Closest checkpoint = ' + closest)
     state.mainPage.rangeData.percentOfSentencesToProcess = closest
     setNumberOfSentencesToProcess(closest)
@@ -87,8 +74,7 @@ export const moveRangeToClosestStep = (value) => {
 
 export const setNumberOfSentencesToProcess = (closest) => {
     let x = closest / state.mainPage.rangeData.oneStepInRange
-    state.mainPage.numberOfSentencesToProcess = x
-    console.log('Closest checkpoint = number in dropdown ' + x)
+    state.mainPage.numberOfSentencesToProcess = Math.round(x)
 }
 
 
@@ -168,6 +154,26 @@ const createArrayOfLabelsForDropdown = (number) => {
         return false;
     }
 }
+
+const createCheckpointsForRange = () => {
+    let newCheckPoints = []
+    for ( let step = 0; step <= 100; ) {
+        // debugger;
+        if (newCheckPoints.length < state.mainPage.dropdownOptions.length) {
+            step += state.mainPage.rangeData.oneStepInRange
+            newCheckPoints.push(step)
+            continue;
+        } else {
+            console.log('Break!!!')
+            break;
+        }
+    }
+    newCheckPoints[newCheckPoints.length - 1] = 100
+    state.mainPage.rangeData.checkPoints = []
+    state.mainPage.rangeData.checkPoints = newCheckPoints
+    console.log(state.mainPage.rangeData.checkPoints)
+}
+
 
 // RENDER SENTENCES FROM RESPONSE
 // ______________________________

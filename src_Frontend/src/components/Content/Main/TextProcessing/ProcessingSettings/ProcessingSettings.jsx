@@ -70,14 +70,17 @@ const ProcessingSettings = (props) => {
 
     return (
         <div>
-            <Select
-                className={s.hover}
-                styles={customControlStyles}
-                options={options}
-                // ref={inputNumber}
-                value={selectedValue}
-                onChange={onDropdownChange.bind(this)}
-                menuPlacement="top" />
+            <div>
+                <Select
+                    className={s.hover}
+                    styles={customControlStyles}
+                    options={options}
+                    // ref={inputNumber}
+                    value={selectedValue}
+                    onChange={onDropdownChange.bind(this)}
+                    menuPlacement="top" />
+            </div>
+            
             <div className={s.rangeBlock}>
                 <InputRange
                     disabled={rangeIsDisabled()}
