@@ -18,7 +18,7 @@ const TextProcessing = (props) => {
 
 		let data = JSON.stringify(reqObj);
 
-		fetch('/api/summarize/', {
+		fetch('https://presstextapp.herokuapp.com/api/summarize/', {
 			method: 'POST', // или 'PUT'
 			body: data, // data может быть типа `string` или {object}!
 			headers: {

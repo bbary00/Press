@@ -59,7 +59,7 @@ const ProcessingSettings = (props) => {
     }
 
     // When scrolling the range
-    let changeRangeValue = (value) => {
+    let onChangeRangeValue = (value) => {
         // debugger;
         props.changePercentOfSentencesToProcess(value)
     }
@@ -84,7 +84,7 @@ const ProcessingSettings = (props) => {
                     maxValue={props.rangeData.maxPercentSentencesToProcess}
                     minValue={props.rangeData.minPercentSentencesToProcess}
                     value={rangeValue}
-                    onChange={value => changeRangeValue(value)} 
+                    onChange={value => onChangeRangeValue(value)} 
                     onChangeComplete={value => moveToClosestStep(value)} />
             </div>
         </div>
