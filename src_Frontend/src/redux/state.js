@@ -32,7 +32,7 @@ export const changeTextToProcess = (text) => {    // 0. Calls every time user en
     splitAndCalculateSentences(text)
     countMaximumNumberOfSentencesToChoose(state.mainPage.numberOfSentences)
     createArrayOfLabelsForDropdown(state.mainPage.maxNumberOfSentencesToChoose)
-    calculateOneStepInRange() // define one step value --> 100% / maximum number of sentences to choose
+    calculateOneStepInRange() 
     createCheckpointsForRange()
     reRenderEntireTree(state)
 };
@@ -44,14 +44,8 @@ export const changeTextToProcess = (text) => {    // 0. Calls every time user en
 // Executing after user set value in dropdown 
 export const changeNumberOfSentencesToProcess = (number) => {
     state.mainPage.numberOfSentencesToProcess = number
-    console.log("numberOfSentencesToProcess = " + state.mainPage.numberOfSentencesToProcess)
-    
-    // Call function change value in range
-    // Checking if user choose max number of sentences and then write to state 100%
-
+    // console.log("numberOfSentencesToProcess = " + state.mainPage.numberOfSentencesToProcess)
     setPercentOfSentencesToProcess();
-
-    // debugger;
     reRenderEntireTree(state)
 }
 
@@ -100,7 +94,7 @@ export const setPercentOfSentencesToProcess = () => {
 // ANALYZE TEXT FROM INPUT
 // _______________________
 
-export let splitAndCalculateSentences = (text) => {
+const splitAndCalculateSentences = (text) => {
     let pattern = /(.+?([A-Za-z]|[А-Яа-яїіь].)\.(?:['")\\\s][\"]?)+?\s?)/igm, match
     let sentences = []
     while( ( match = pattern.exec( text )) != null ) {
@@ -158,7 +152,6 @@ const createArrayOfLabelsForDropdown = (number) => {
 const createCheckpointsForRange = () => {
     let newCheckPoints = []
     for ( let step = 0; step <= 100; ) {
-        // debugger;
         if (newCheckPoints.length < state.mainPage.dropdownOptions.length) {
             step += state.mainPage.rangeData.oneStepInRange
             newCheckPoints.push(step)

@@ -78,7 +78,8 @@ const ProcessingSettings = (props) => {
                     // ref={inputNumber}
                     value={selectedValue}
                     onChange={onDropdownChange.bind(this)}
-                    menuPlacement="top" />
+                    menuPlacement="top"
+                    isSearchable={false} />
             </div>
             
             <div className={s.rangeBlock}>

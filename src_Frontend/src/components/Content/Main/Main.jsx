@@ -13,7 +13,7 @@ const Main = (props) => {
 				addSentencesFromSummarizedText={props.addSentencesFromSummarizedText}
 				textToProcess={props.mainPage.textToProcess}
 				changeTextToProcess={props.changeTextToProcess}
-				splitAndCalculateSentences={props.splitAndCalculateSentences}
+				
 
 				numberOfSentencesToProcess={props.mainPage.numberOfSentencesToProcess}
 				changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}

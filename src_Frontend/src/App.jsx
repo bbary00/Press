@@ -26,7 +26,7 @@ const App = (props) => {
 								changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 								changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
 								moveRangeToClosestStep={props.moveRangeToClosestStep}
-								splitAndCalculateSentences={props.splitAndCalculateSentences}
+								
 							/>} 
 						/>
 						{/* <Route 
