@@ -1,12 +1,17 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'jquery';
-import 'popper.js';
+// import 'bootstrap/dist/css/bootstrap.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+
+// import 'jquery';
+// import 'popper.js';
 import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
 import state from './redux/state';
 import { subscribe, addSentencesFromSummarizedText, changeTextToProcess, changeNumberOfSentencesToProcess, changePercentOfSentencesToProcess, moveRangeToClosestStep } from './redux/state';
+
 
 
 let reRenderEntireTree = (state) => {

@@ -39,25 +39,41 @@ const TextProcessing = (props) => {
 		let text = inputText.current.value
 		props.changeTextToProcess(text)
 	}
-	
+
+	let numberOfSentences = props.numberOfSentences
+	let numberOfSymbols = props.numberOfSymbols
+
 	return (
 		<div>
-			<div className="row no-gutters">
+			{/* <div className="row no-gutters">
 				<div className={`${s.box}`}>
 					<p className={s.headingLarge}>Process your text and get the most important information</p>
 				</div>
-			</div>
+			</div> */}
 			<div className="row no-gutters">
 				<div className="col">
 					<div className={s.box}>
-						<p className={s.heading}>1. Put your text here</p>
+						<p className={s.heading}>1. Put the text below &nbsp;&nbsp;
+							<span style={{ fontWeight: '400', fontSize: '1rem' }}>or &nbsp;&nbsp;</span>
+							<span>
+								<button className={`btn btn-sm sunny-morning-gradient ${s.btnSmall} ${s.btnUpload}`}>
+									<i class="fas fa-file-upload" style={{ marginRight: '10px', top: '2px' }}></i>Upload file
+								</button>
+							</span>
+						</p>
 						<textarea ref={inputText} onChange={onInputTextChange} value={props.textToProcess} />
+						<div className={s.countBlock}>
+							<ul>
+								<li>Sentences: <span>{numberOfSentences}</span></li>
+								<li>Symbols: <span>{numberOfSymbols}</span></li>
+							</ul>
+						</div>
 					</div>
 					<div className={s.box}>
 						<p className={s.heading}>2. How many sentences you want to get?</p>
 						<div className="row no-gutters">
 							<div className="col">
-								<ProcessingSettings 
+								<ProcessingSettings
 									numberOfSentencesToProcess={props.numberOfSentencesToProcess}
 									changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
 									changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
@@ -68,7 +84,7 @@ const TextProcessing = (props) => {
 							</div>
 							<div className="col">
 
-								<button type="button" onClick={sendRequest} className={`btn btn-outline-primary ${s.btnMain}`}>Get summary</button>
+								<button type="button" onClick={sendRequest} className={`btn peach-gradient ${s.btnMain}`}>Get summary</button>
 							</div>
 						</div>
 					</div>
@@ -76,7 +92,7 @@ const TextProcessing = (props) => {
 				<div className="col">
 					<div className={s.box}>
 						<div>
-							<p className={`${s.heading}`}>3. Pick up the result below</p>
+							<p className={`${s.heading}`}>3. Pick up the result</p>
 						</div>
 						<div className={s.posts}>
 							{summarizedTextElements}

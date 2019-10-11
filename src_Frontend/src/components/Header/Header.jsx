@@ -17,14 +17,14 @@ const Header = (props) => {
           <div className={s.menu}>
             <ul>
               <li>
-                <NavLink className={s.item} activeClassName={s.active} to="/main">Check text</NavLink>
+                <NavLink className={s.item} activeClassName={s.active} to="/main">Process your text and get a <span style={{fontWeight: '500', color: '#E57900'}}>sense in few seconds</span></NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink className={`${s.item}`} activeClassName={s.active} to="/dialogs">My data</NavLink>
               </li>
               <li>
                 <NavLink className={s.item} activeClassName={s.active} to="/settings">Settings</NavLink>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

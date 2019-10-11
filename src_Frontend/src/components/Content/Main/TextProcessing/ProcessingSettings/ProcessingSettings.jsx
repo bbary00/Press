@@ -69,7 +69,7 @@ const ProcessingSettings = (props) => {
     }
 
     return (
-        <div>
+        <div className={s.settingsBlock}>
             <div>
                 <Select
                     className={s.hover}
@@ -78,7 +78,7 @@ const ProcessingSettings = (props) => {
                     // ref={inputNumber}
                     value={selectedValue}
                     onChange={onDropdownChange.bind(this)}
-                    menuPlacement="top"
+                    // menuPlacement="top"
                     isSearchable={false} />
             </div>
             

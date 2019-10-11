@@ -11,25 +11,30 @@
 .logo_container {
   width: auto;
   height: 60px;
-  left: 0;
+  left: 35px;
   position: relative;
 
 }
 .logo {
   display: block;
   position: absolute;
+  width: 150px;
+  height: 100%;
   top: 50%;
   left: 0;
   transform: translate(0, -50%);
   /* margin-top: 10px; */
 }
 .logo img {
-  max-height: 60px;
+  max-height: 40px;
   position: absolute;
   /* right: 50%; */
   /* transform: translate(-50%, 0); */
   top: 50%;
   transform: translate(0, -50%);
+}
+.logo:hover  {
+  /* transform: scale(1.1); */
 }
 .nav {
   position: relative;
@@ -51,10 +56,11 @@ ul {
 }
 ul li {
   margin-bottom: 0px;
-  width: 110px;
+  width: auto;
 }
 ul li a {
   text-decoration: none;
+  
 }
 ul li a:hover {
   text-decoration: none;
@@ -64,7 +70,7 @@ ul li a:hover {
 .item {
   display: block;
   color: grey;
-  padding: 15px 0 0px 0;
+  padding: 15px 25px 0px 25px;
   text-align: center;
   text-decoration: none;
   color: black;

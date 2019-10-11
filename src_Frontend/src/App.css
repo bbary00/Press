@@ -357,6 +357,7 @@ body {
   font-family: 'Quicksand', sans-serif !important;
   min-height: 100vh;
   position: relative;
+  background-image: url('/images/background-tile.png');
 }
 
 .headWrapper {

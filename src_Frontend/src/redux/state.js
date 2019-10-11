@@ -1,3 +1,6 @@
+import Tokenizer from 'sentence-tokenizer'
+
+var tokenizer = new Tokenizer('Chuck');
 
 let state = {
     
@@ -79,7 +82,7 @@ export const setPercentOfSentencesToProcess = () => {
     let totalSteps = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
     // Hack - to show maximum value in range input when chosen max value in dropdown
     // Sets new value to InputRange
-    if (totalSteps > state.mainPage.rangeData.maxPercentSentencesToProcess || totalSteps < state.mainPage.rangeData.maxPercentSentencesToProcess  && state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length) {
+    if ((totalSteps > state.mainPage.rangeData.maxPercentSentencesToProcess || totalSteps < state.mainPage.rangeData.maxPercentSentencesToProcess)  && (state.mainPage.numberOfSentencesToProcess === state.mainPage.dropdownOptions.length)) {
         state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.maxPercentSentencesToProcess
     } else {
         state.mainPage.rangeData.percentOfSentencesToProcess = state.mainPage.rangeData.oneStepInRange * state.mainPage.numberOfSentencesToProcess
@@ -95,33 +98,55 @@ export const setPercentOfSentencesToProcess = () => {
 // _______________________
 
 const splitAndCalculateSentences = (text) => {
-    let pattern = /(.+?([A-Za-z]|[А-Яа-яїіь].)\.(?:['")\\\s][\"]?)+?\s?)/igm, match
-    let sentences = []
-    while( ( match = pattern.exec( text )) != null ) {
-        if( match.index === pattern.lastIndex ) {
-            pattern.lastIndex++
-        }
-        sentences.push( match[0] )
-    };
-    state.mainPage.allSentences = sentences
+    // console.log('Text before replace = ' + text)
+
+    let newText = text.replace(/\n/gmi, " ")
+   
+    // console.log('Text after replacement = ' + newText)
+    tokenizer.setEntry(newText)
+    state.mainPage.allSentences = tokenizer.getSentences()
     state.mainPage.numberOfSymbols = text.length
-    // console.log('numberOfSentences = ' + state.mainPage.allSentences.length)
-    if (/\s$/.test(text)) {
-        state.mainPage.numberOfSentences = state.mainPage.allSentences.length
-        // console.log('first if is worked')
-    } else {
-        state.mainPage.numberOfSentences = state.mainPage.allSentences.length + 1
-        // console.log('second if is worked')
-    };
+    state.mainPage.numberOfSentences = state.mainPage.allSentences.length
+    console.log('This is all sentences ' + state.mainPage.allSentences)
+    // debugger;
     // console.log('numberOfSentences after if = ' + state.mainPage.numberOfSentences)
     // console.log(sentences);
     // console.log('Text length: ' + text.length)
     // console.log('All sentences: ' + state.mainPage.allSentences);
-    // console.log('Number of sentences: ' + state.mainPage.numberOfSentences);
+    console.log('Number of sentences: ' + state.mainPage.numberOfSentences);
 };
+
+// const splitAndCalculateSentences = (text) => {
+//     let pattern = /(.+?([A-Za-z]|[А-Яа-яїіь].)\.(?:['")\\\s][\"]?)+?\s?)/igm, match
+//     let sentences = []
+//     while( ( match = pattern.exec( text )) != null ) {
+//         if( match.index === pattern.lastIndex ) {
+//             pattern.lastIndex++
+//         }
+//         sentences.push( match[0] )
+//     };
+//     state.mainPage.allSentences = sentences
+//     state.mainPage.numberOfSymbols = text.length
+//     console.log('This is all sentences ' + state.mainPage.allSentences)
+//     
+//     // console.log('numberOfSentences = ' + state.mainPage.allSentences.length)
+//     if (/\s$/.test(text)) {
+//         state.mainPage.numberOfSentences = state.mainPage.allSentences.length
+//         // console.log('first if is worked')
+//     } else {
+//         state.mainPage.numberOfSentences = state.mainPage.allSentences.length + 1
+//         // console.log('second if is worked')
+//     };
+//     // console.log('numberOfSentences after if = ' + state.mainPage.numberOfSentences)
+//     // console.log(sentences);
+//     // console.log('Text length: ' + text.length)
+//     // console.log('All sentences: ' + state.mainPage.allSentences);
+//     // console.log('Number of sentences: ' + state.mainPage.numberOfSentences);
+// };
 
 const calculateOneStepInRange = () => {
     state.mainPage.rangeData.oneStepInRange = Math.round(state.mainPage.rangeData.maxPercentSentencesToProcess / state.mainPage.maxNumberOfSentencesToChoose)
+    // debugger
 }
 
 const countMaximumNumberOfSentencesToChoose = (number) => {
@@ -134,6 +159,7 @@ const countMaximumNumberOfSentencesToChoose = (number) => {
     } else {
         state.mainPage.maxNumberOfSentencesToChoose = 10
     }
+    // debugger
 }
 
 const createArrayOfLabelsForDropdown = (number) => {

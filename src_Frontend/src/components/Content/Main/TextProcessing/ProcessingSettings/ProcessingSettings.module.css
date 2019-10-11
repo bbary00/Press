@@ -2,7 +2,9 @@
 
 /* __________________ */
 /* RANGE INPUT STYLES */
-
+.settingsBlock {
+    padding: 0 0 30px 0;
+}
 .rangeBlock {
     width: 90%;
     margin: 30px auto 0;
