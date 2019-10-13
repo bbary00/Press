@@ -61,6 +61,8 @@ textarea:focus {
   width: auto;
   height: 50px;
   width: auto;
+  margin: 0;
+  padding: 13px 25px 13px 25px;
 }
 
 .btnSmall {

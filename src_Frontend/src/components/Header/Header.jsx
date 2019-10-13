@@ -14,10 +14,17 @@ const Header = (props) => {
           </div>
         </div>
         <div className="col-6">
+          <div className={s.sloganBlock}>
+            <NavLink className={s.item} activeClassName={s.active} to="/main">
+              <div style={{position: 'relative', width: '100%', height: '100%'}}>
+                <p>Process your text and get a <span style={{fontWeight: '500', color: '#E57900'}}>sense in few seconds</span></p>
+              </div>
+            </NavLink>
+          </div>
           <div className={s.menu}>
             <ul>
               <li>
-                <NavLink className={s.item} activeClassName={s.active} to="/main">Process your text and get a <span style={{fontWeight: '500', color: '#E57900'}}>sense in few seconds</span></NavLink>
+                
               </li>
               {/* <li>
                 <NavLink className={`${s.item}`} activeClassName={s.active} to="/dialogs">My data</NavLink>

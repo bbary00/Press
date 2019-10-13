@@ -51,7 +51,7 @@ const TextProcessing = (props) => {
 				</div>
 			</div> */}
 			<div className="row no-gutters">
-				<div className="col">
+				<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 					<div className={s.box}>
 						<p className={s.heading}>1. Put the text below &nbsp;&nbsp;
 							<span style={{ fontWeight: '400', fontSize: '1rem' }}>or &nbsp;&nbsp;</span>
@@ -72,7 +72,7 @@ const TextProcessing = (props) => {
 					<div className={s.box}>
 						<p className={s.heading}>2. How many sentences you want to get?</p>
 						<div className="row no-gutters">
-							<div className="col">
+							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 								<ProcessingSettings
 									numberOfSentencesToProcess={props.numberOfSentencesToProcess}
 									changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
@@ -82,14 +82,14 @@ const TextProcessing = (props) => {
 									rangeData={props.rangeData}
 								/>
 							</div>
-							<div className="col">
+							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 
 								<button type="button" onClick={sendRequest} className={`btn peach-gradient ${s.btnMain}`}>Get summary</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div className="col">
+				<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 					<div className={s.box}>
 						<div>
 							<p className={`${s.heading}`}>3. Pick up the result</p>
