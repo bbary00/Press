@@ -37,10 +37,9 @@ const TextProcessing = (props) => {
 
 	let inputText = React.createRef();
 
-	let onInputTextChange = () => {
-		let text = inputText.current.value
-		let action = changeTextToProcessCreator(text)
-		props.dispatch(action)
+	let onInputTextChange = (e) => {
+		let text = e.target.value
+		props.dispatch(changeTextToProcessCreator(text))
 	}
 
 	let numberOfSentences = props.numberOfSentences
@@ -60,7 +59,7 @@ const TextProcessing = (props) => {
 							<span style={{ fontWeight: '400', fontSize: '1rem' }}>or &nbsp;&nbsp;</span>
 							<span>
 								<button className={`btn btn-sm sunny-morning-gradient ${s.btnSmall} ${s.btnUpload}`}>
-									<i class="fas fa-file-upload" style={{ marginRight: '10px', top: '2px' }}></i>Upload file
+									<i className="fas fa-file-upload" style={{ marginRight: '10px', top: '2px' }}></i>Upload file
 								</button>
 							</span>
 						</p>
@@ -101,8 +100,6 @@ const TextProcessing = (props) => {
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 	)
 }

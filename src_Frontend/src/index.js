@@ -9,20 +9,20 @@ import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
-import state from './redux/state';
-import { subscribe, dispatch, addSentencesFromSummarizedText, changeTextToProcess, changeNumberOfSentencesToProcess, changePercentOfSentencesToProcess, moveRangeToClosestStep } from './redux/state';
+import store from './redux/state';
+import { } from './redux/state';
 
 
 
 let reRenderEntireTree = (state) => {
     ReactDOM.render(
-        <App state={state} 
-            dispatch={dispatch} />, document.getElementById('root'));
+        <App state={state}
+            dispatch={store.dispatch.bind(store)} />, document.getElementById('root'));
 }
 
-reRenderEntireTree(state);
+reRenderEntireTree(store.getState());
 
-subscribe(reRenderEntireTree);
+store.subscribe(reRenderEntireTree);
 
 
 // If you want your app to work offline and load faster, you can change
