@@ -4,12 +4,13 @@ import './App.css';
 import Header from './components/Header/Header';
 import Main from './components/Content/Main/Main';
 import Footer from './components/Footer/Footer';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 
 const App = (props) => {
+	// debugger;
 	return (
-		<BrowserRouter>
+		
 			<div>
 				<div className="headWrapper">
 					<Header />
@@ -31,7 +32,7 @@ const App = (props) => {
 					<Footer />
 				</div>
 			</div>
-		</BrowserRouter>
+		
 
 	);
 };

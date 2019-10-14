@@ -2,7 +2,7 @@ import React from 'react';
 import s from './TextProcessing.module.css';
 import SentenceTemplate from './SentenceTemplate/SentenceTemplate';
 import ProcessingSettings from "./ProcessingSettings/ProcessingSettings";
-import { changeTextToProcessCreator, addSentencesFromSummarizedTextCreator } from '../../../../redux/state'
+import { changeTextToProcessCreator, addSentencesFromSummarizedTextCreator } from '../../../../redux/mainPage-reducer'
 
 const TextProcessing = (props) => {
 	// debugger;
@@ -39,7 +39,8 @@ const TextProcessing = (props) => {
 
 	let onInputTextChange = (e) => {
 		let text = e.target.value
-		props.dispatch(changeTextToProcessCreator(text))
+		let action = changeTextToProcessCreator(text)
+		props.dispatch(action)
 	}
 
 	let numberOfSentences = props.numberOfSentences

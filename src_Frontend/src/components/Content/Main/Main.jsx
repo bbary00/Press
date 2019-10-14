@@ -22,4 +22,20 @@ const Main = (props) => {
 	)
 }
 
+
+// let mapStateToProps = (state) => {
+// 	return {
+// 		mainPage: state.dialogsPage
+// 	}
+// }
+// let mapDispatchToProps = () => {
+// 	return {
+// 		sendRequest: () => {
+
+// 		} 
+// 	}
+// } 
+
+// const TextProcessingContainer = connect(mapStateToProps, mapDispatchToProps)(TextProcessing)
+
 export default Main

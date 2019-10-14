@@ -3,7 +3,7 @@ import React from 'react';
 import InputRange from 'react-input-range';
 import Select from 'react-select';
 import 'react-input-range/lib/css/index.css';
-import { changeNumberOfSentencesToProcessCreator, changePercentOfSentencesToProcessCreator, moveRangeToClosestStepCreator} from '../../../../../redux/state';
+import { changeNumberOfSentencesToProcessCreator, changePercentOfSentencesToProcessCreator, moveRangeToClosestStepCreator} from '../../../../../redux/mainPage-reducer';
 
 const ProcessingSettings = (props) => {
 
