@@ -8,22 +8,15 @@ const Main = (props) => {
 	return (
 		<div className={s.profile}>
 			
-			<TextProcessing 
+			<TextProcessing 	
 				textSummarized={props.mainPage.textSummarized}
-				addSentencesFromSummarizedText={props.addSentencesFromSummarizedText}
 				textToProcess={props.mainPage.textToProcess}
-				changeTextToProcess={props.changeTextToProcess}
-
 				numberOfSentences={props.mainPage.numberOfSentences}
 				numberOfSymbols={props.mainPage.numberOfSymbols}
-
 				numberOfSentencesToProcess={props.mainPage.numberOfSentencesToProcess}
-				changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
-				changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
-				moveRangeToClosestStep={props.moveRangeToClosestStep}
-
 				dropdownOptions={props.mainPage.dropdownOptions}
 				rangeData={props.mainPage.rangeData}
+				dispatch={props.dispatch}
 			/>
 		</div>
 	)

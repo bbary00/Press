@@ -3,16 +3,16 @@ import React from 'react';
 import InputRange from 'react-input-range';
 import Select from 'react-select';
 import 'react-input-range/lib/css/index.css';
+import { changeNumberOfSentencesToProcessCreator, changePercentOfSentencesToProcessCreator, moveRangeToClosestStepCreator} from '../../../../../redux/state';
 
 const ProcessingSettings = (props) => {
 
     // debugger;
 
     let onDropdownChange = (event) => {
-        let selectedNumberOfSentences = event.value
         // console.log("selectedNumberOfSentences = " + selectedNumberOfSentences)
-        props.changeNumberOfSentencesToProcess(selectedNumberOfSentences)
-        // debugger;
+        let action = changeNumberOfSentencesToProcessCreator(event.value)
+        props.dispatch(action)
     }
 
     // Before rendering html
@@ -61,11 +61,13 @@ const ProcessingSettings = (props) => {
     // When scrolling the range
     let onChangeRangeValue = (value) => {
         // debugger;
-        props.changePercentOfSentencesToProcess(value)
+        let action = changePercentOfSentencesToProcessCreator(value)
+        props.dispatch(action)
     }
     // When scroll is finished 
     let moveToClosestStep = (value) => {
-        props.moveRangeToClosestStep(value)
+        let action = moveRangeToClosestStepCreator(value)
+        props.dispatch(action)
     }
 
     return (

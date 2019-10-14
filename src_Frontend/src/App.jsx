@@ -3,10 +3,9 @@ import 'bootstrap';
 import './App.css';
 import Header from './components/Header/Header';
 import Main from './components/Content/Main/Main';
-import Settings from './components/Content/Settings/Settings';
 import Footer from './components/Footer/Footer';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
- 
+
 
 const App = (props) => {
 	return (
@@ -21,23 +20,9 @@ const App = (props) => {
 						<Route path="/main"
 							render={() => <Main
 								mainPage={props.state.mainPage}
-								addSentencesFromSummarizedText={props.addSentencesFromSummarizedText}
-								changeTextToProcess={props.changeTextToProcess}
-								changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
-								changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
-								moveRangeToClosestStep={props.moveRangeToClosestStep}
-								
-							/>} 
-						/>
-						{/* <Route 
-							path="/dialogs"
-							render={() => <Dialogs
-								dialogsData={props.state.dialogsPage.dialogsData}
-								messagesData={props.state.dialogsPage.messagesData}
-								addMessage={props.addMessage}
-							/>} 
-						/> */}
-						<Route path="/settings" render={() => <Settings />} />
+								dispatch={props.dispatch} />} />
+						
+						{/* <Route path="/settings" render={() => <Settings />} /> */}
 						<Redirect from="/" exact to="/main" />
 					</div>
 					{/* <div className="adSenseContainer">ADSENSE 2</div> */}

@@ -2,6 +2,7 @@ import React from 'react';
 import s from './TextProcessing.module.css';
 import SentenceTemplate from './SentenceTemplate/SentenceTemplate';
 import ProcessingSettings from "./ProcessingSettings/ProcessingSettings";
+import { changeTextToProcessCreator, addSentencesFromSummarizedTextCreator } from '../../../../redux/state'
 
 const TextProcessing = (props) => {
 	// debugger;
@@ -28,7 +29,8 @@ const TextProcessing = (props) => {
 			.then((response) => {
 				// console.log(JSON.stringify(response));
 				console.log(response);
-				props.addSentencesFromSummarizedText(response);
+				let action = addSentencesFromSummarizedTextCreator(response)
+				props.dispatch(action);
 			})
 			.catch(error => console.error('Ошибка:', error));
 	}
@@ -37,7 +39,8 @@ const TextProcessing = (props) => {
 
 	let onInputTextChange = () => {
 		let text = inputText.current.value
-		props.changeTextToProcess(text)
+		let action = changeTextToProcessCreator(text)
+		props.dispatch(action)
 	}
 
 	let numberOfSentences = props.numberOfSentences
@@ -75,11 +78,9 @@ const TextProcessing = (props) => {
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 								<ProcessingSettings
 									numberOfSentencesToProcess={props.numberOfSentencesToProcess}
-									changeNumberOfSentencesToProcess={props.changeNumberOfSentencesToProcess}
-									changePercentOfSentencesToProcess={props.changePercentOfSentencesToProcess}
-									moveRangeToClosestStep={props.moveRangeToClosestStep}
 									dropdownOptions={props.dropdownOptions}
 									rangeData={props.rangeData}
+									dispatch={props.dispatch}
 								/>
 							</div>
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
