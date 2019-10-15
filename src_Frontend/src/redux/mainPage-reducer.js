@@ -29,54 +29,40 @@ const mainPageReducer = (state = initialState, action) => {
     // debugger;
     switch(action.type) {
         case CHANGE_TEXT_TO_PROCESS:
-            changeTextToProcess(state, action)
-            return state
+            return changeTextToProcess(state, action)
         case ADD_SENTENCES_FROM_SUMMARIZED_TEXT: 
-            addSentencesFromSummarizedText(state, action)
-            return state
+            return addSentencesFromSummarizedText(state, action)
         case CHANGE_NUMBER_OF_SENTENCES_TO_PROCESS:
-            changeNumberOfSentencesToProcess(state, action)
-            return state
+            return changeNumberOfSentencesToProcess(state, action)
         case CHANGE_PERCENT_OF_SENTENCES_TO_PROCESS:
-            changePercentOfSentencesToProcess(state, action)
-            return state
+            return changePercentOfSentencesToProcess(state, action)
         case MOVE_RANGE_TO_CLOSEST_STEP: 
-            moveRangeToClosestStep(state, action)
-            return state
+            return moveRangeToClosestStep(state, action)
         default: 
             return state
-    }
-
-    // if (action.type === CHANGE_TEXT_TO_PROCESS) {
-    //     this._changeTextToProcess(action)
-    // } else if (action.type === ADD_SENTENCES_FROM_SUMMARIZED_TEXT) {
-    //     this._addSentencesFromSummarizedText(action)
-    // } else if (action.type === CHANGE_NUMBER_OF_SENTENCES_TO_PROCESS) {
-    //     this._changeNumberOfSentencesToProcess(action)
-    // } else if (action.type === CHANGE_PERCENT_OF_SENTENCES_TO_PROCESS) {
-    //     this._changePercentOfSentencesToProcess(action)
-    // } else if (action.type === MOVE_RANGE_TO_CLOSEST_STEP) {
-    //     this._moveRangeToClosestStep(action)
-    // }
-       
+    }  
 }
 
 const changeTextToProcess = (state, action) => {    // 0. Calls every time user enter symbol in text area 1. Catches total string value entered by user in text area 2. Write new value to object "textToProcess" 3. ReRender SPA
-        state.textToProcess = action.text
-        splitAndCalculateSentences(state, action.text)
-        countMaximumNumberOfSentencesToChoose(state, state.numberOfSentences)
-        createArrayOfLabelsForDropdown(state, state.maxNumberOfSentencesToChoose)
-        calculateOneStepInRange(state) 
-        createCheckpointsForRange(state)
-        return state
-    }
+    // debugger;    
+    state.textToProcess = action.text
+    splitAndCalculateSentences(state, action.text)
+    countMaximumNumberOfSentencesToChoose(state, state.numberOfSentences)
+    createArrayOfLabelsForDropdown(state, state.maxNumberOfSentencesToChoose)
+    calculateOneStepInRange(state) 
+    createCheckpointsForRange(state)
+    let newState = { ...state }
+    return newState
+}
 
 // ______________________________
 // RENDER SENTENCES FROM RESPONSE
 const addSentencesFromSummarizedText = (state, action) => {
+    debugger;
     state.textSummarized = []
     action.data.summary_text.map(item => state.textSummarized.push(item))
-    return state
+    let newState = { ...state }
+    return newState
 }
 
 // ________________________
@@ -86,14 +72,16 @@ const changeNumberOfSentencesToProcess = (state, action) => {
     state.numberOfSentencesToProcess = action.number
     // console.log("numberOfSentencesToProcess = " + state.numberOfSentencesToProcess)
     setPercentOfSentencesToProcess(state);
-    return state
+    let newState = { ...state }
+    return newState
 }
 
 const changePercentOfSentencesToProcess = (state, action) => {
     // Executing after user set value in range input 
     state.rangeData.percentOfSentencesToProcess = action.value
     // console.log('percentOfSentencesToProcess = ' + state.rangeData.percentOfSentencesToProcess)
-    return state
+    let newState = { ...state }
+    return newState
 }
 const moveRangeToClosestStep = (state, action) => {
     // Executing after user released mouse button in range input 
@@ -103,7 +91,8 @@ const moveRangeToClosestStep = (state, action) => {
     console.log('Closest checkpoint = ' + closest)
     state.rangeData.percentOfSentencesToProcess = closest
     setNumberOfSentencesToProcess(state, closest)
-    return state
+    let newState = { ...state }
+    return newState
 }
 
 // ___________________________________________________________

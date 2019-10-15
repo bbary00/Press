@@ -14,13 +14,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 
+
 let reRenderEntireTree = (state) => {
     // debugger;
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-                <App state={state}
-                    dispatch={store.dispatch.bind(store)} />
+                <App  state={state}/>
             </Provider>
         </BrowserRouter>, document.getElementById('root'));
 }

@@ -8,7 +8,6 @@ import { Route, Redirect } from 'react-router-dom';
 
 
 const App = (props) => {
-	// debugger;
 	return (
 		
 			<div>
@@ -19,9 +18,7 @@ const App = (props) => {
 					{/* <div className="adSenseContainer">ADSENSE 1</div> */}
 					<div className="contentContainer">
 						<Route path="/main"
-							render={() => <Main
-								mainPage={props.state.mainPage}
-								dispatch={props.dispatch} />} />
+							render={() => <Main />} />
 						
 						{/* <Route path="/settings" render={() => <Settings />} /> */}
 						<Redirect from="/" exact to="/main" />
@@ -32,8 +29,6 @@ const App = (props) => {
 					<Footer />
 				</div>
 			</div>
-		
-
 	);
 };
 

@@ -1,20 +1,26 @@
 import React from 'react';
 import s from './TextProcessing.module.css';
 import SentenceTemplate from './SentenceTemplate/SentenceTemplate';
-import ProcessingSettings from "./ProcessingSettings/ProcessingSettings";
-import { changeTextToProcessCreator, addSentencesFromSummarizedTextCreator } from '../../../../redux/mainPage-reducer'
+import ProcessingSettingsContainer from "./ProcessingSettings/ProcessingSettingsContainer.js";
+// import { changeTextToProcessCreator, addSentencesFromSummarizedTextCreator } from '../../../../redux/mainPage-reducer'
 
 const TextProcessing = (props) => {
 	// debugger;
-	let summarizedTextElements = props.textSummarized.map(item => <SentenceTemplate title={item.id} text={item.text} />);
+	
+	let inputText = React.createRef();
+
+	let onInputTextChange = (e) => {
+		let text = e.target.value
+		props.changeTextToProcess(text)
+	}
 
 	let sendRequest = () => {
 		summarizedTextElements = [];
 		let text = inputText.current.value;
 		let reqObj = {
 			original_text: text,
-			number_of_sentences: props.numberOfSentencesToProcess,
-			number_of_symbols: props.numberOfSymbols
+			number_of_sentences: props.mainPage.numberOfSentencesToProcess,
+			number_of_symbols: props.mainPage.numberOfSymbols
 		}
 
 		let data = JSON.stringify(reqObj);
@@ -29,30 +35,15 @@ const TextProcessing = (props) => {
 			.then((response) => {
 				// console.log(JSON.stringify(response));
 				console.log(response);
-				let action = addSentencesFromSummarizedTextCreator(response)
-				props.dispatch(action);
+				props.addSentencesFromSummarizedText(response)
 			})
 			.catch(error => console.error('Ошибка:', error));
 	}
 
-	let inputText = React.createRef();
-
-	let onInputTextChange = (e) => {
-		let text = e.target.value
-		let action = changeTextToProcessCreator(text)
-		props.dispatch(action)
-	}
-
-	let numberOfSentences = props.numberOfSentences
-	let numberOfSymbols = props.numberOfSymbols
+	let summarizedTextElements = props.mainPage.textSummarized.map(item => <SentenceTemplate title={item.id} text={item.text} />);
 
 	return (
 		<div>
-			{/* <div className="row no-gutters">
-				<div className={`${s.box}`}>
-					<p className={s.headingLarge}>Process your text and get the most important information</p>
-				</div>
-			</div> */}
 			<div className="row no-gutters">
 				<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 					<div className={s.box}>
@@ -64,11 +55,11 @@ const TextProcessing = (props) => {
 								</button>
 							</span>
 						</p>
-						<textarea ref={inputText} onChange={onInputTextChange} value={props.textToProcess} />
+						<textarea ref={inputText} onChange={onInputTextChange} value={props.mainPage.textToProcess} />
 						<div className={s.countBlock}>
 							<ul>
-								<li>Sentences: <span>{numberOfSentences}</span></li>
-								<li>Symbols: <span>{numberOfSymbols}</span></li>
+								<li>Sentences: <span>{props.mainPage.numberOfSentences}</span></li>
+								<li>Symbols: <span>{props.mainPage.numberOfSymbols}</span></li>
 							</ul>
 						</div>
 					</div>
@@ -76,15 +67,9 @@ const TextProcessing = (props) => {
 						<p className={s.heading}>2. How many sentences you want to get?</p>
 						<div className="row no-gutters">
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-								<ProcessingSettings
-									numberOfSentencesToProcess={props.numberOfSentencesToProcess}
-									dropdownOptions={props.dropdownOptions}
-									rangeData={props.rangeData}
-									dispatch={props.dispatch}
-								/>
+								<ProcessingSettingsContainer />
 							</div>
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-
 								<button type="button" onClick={sendRequest} className={`btn peach-gradient ${s.btnMain}`}>Get summary</button>
 							</div>
 						</div>
