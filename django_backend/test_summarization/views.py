@@ -4,7 +4,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .deep_backend.Press import Press
-from test_summarization.tasks import summarize_text
 
 
 @api_view(['GET'])

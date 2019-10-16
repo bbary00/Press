@@ -1,5 +1,4 @@
-﻿from nltk.tokenize import sent_tokenize
-from collections import defaultdict
+﻿from collections import defaultdict
 from stopwords import UKRAINIAN
 from collections import Counter
 from stemming import stem
@@ -20,8 +19,7 @@ def text_preprocess(text):
     """
 
     # Get list of sentences
-    tokened_sentences = sent_tokenize(text)
-
+    tokened_sentences = re.split(r'(?<=[^А-ЯA-Z0-9].[.?!])\s*(?=[А-ЯA-Z0-9])', text.replace('\n', ' '))
     # Compile pattern to find words in string
     word_finding_pattern = re.compile(r"\w+['-]?\w+")
 
@@ -58,18 +56,31 @@ def find_most_relevant_sentences(main_tokens, stemmed_sentences):
     return sentence_ranking
 
 
+def create_groups(sent_indexes, max_value=20000):
+    sent_indexes[0] = 0
+    sent_indexes[-1] = 20000
+    sent_indexes[3] = 2
+    print('main sents: ', sent_indexes)
+    context_indexes = []
+    for i in sent_indexes:
+        context_indexes += list(range(max(0, i-2), min(i+2, max_value) + 1))
+    context_indexes = sorted(set(context_indexes))
+    from itertools import groupby, cycle
+    x2 = cycle(context_indexes)
+    next(x2)
+    grps = groupby(context_indexes, key=lambda j: j + 1 == next(x2))
+    for k, v in grps:
+        if k:
+            print(tuple(v) + (next((next(grps)[1])),))
+
+
 def Press(text_to_press, number_of_sentences_to_output, **kwargs):
     """Main function to call"""
     stemmed_tokens, stemmed_sentences, tokened_sentences = text_preprocess(text_to_press)
     main_tokens = word_evaluation(stemmed_tokens)
-    most_relevant_sentence_indexes = find_most_relevant_sentences(main_tokens, stemmed_sentences)
 
+    most_relevant_sentence_indexes = find_most_relevant_sentences(main_tokens, stemmed_sentences)
     sentence_indexes_to_output = most_relevant_sentence_indexes[:number_of_sentences_to_output]
-    output_dict = dict({'sentences_to_output': [tokened_sentences[index]
-                                                for index in sorted(sentence_indexes_to_output)]})
-    for key, value in kwargs.items():
-        if key == 'context':
-            output_dict['context_sentences'] = [' '.join(tokened_sentences[max(0, index - value):
-                                                                           min(index+value, len(tokened_sentences))])
-                                                for index in sorted(sentence_indexes_to_output)]
-    return output_dict
+
+    sentences_to_output = [tokened_sentences[index] for index in sorted(sentence_indexes_to_output)]
+    return sentences_to_output
