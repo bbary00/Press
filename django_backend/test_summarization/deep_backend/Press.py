@@ -1,4 +1,5 @@
-﻿from collections import defaultdict
+﻿from nltk import sent_tokenize
+from collections import defaultdict
 from stopwords import UKRAINIAN
 from collections import Counter
 from stemming import stem
@@ -19,7 +20,8 @@ def text_preprocess(text):
     """
 
     # Get list of sentences
-    tokened_sentences = re.split(r'(?<=[^А-ЯA-Z0-9].[.?!])\s*(?=[А-ЯA-Z0-9])', text.replace('\n', ' '))
+    tokened_sentences = re.split(r'(?<=[.?!])\s*(?=[—А-ЯA-Z0-9])', text.replace('\n', ' '))
+    # tokened_sentences = sent_tokenize(text)
     # Compile pattern to find words in string
     word_finding_pattern = re.compile(r"\w+['-]?\w+")
 
@@ -84,3 +86,6 @@ def Press(text_to_press, number_of_sentences_to_output, **kwargs):
 
     sentences_to_output = [tokened_sentences[index] for index in sorted(sentence_indexes_to_output)]
     return sentences_to_output
+
+data = open('news.txt', 'r').read()
+print('\n\n'.join(Press(data, 10)))
