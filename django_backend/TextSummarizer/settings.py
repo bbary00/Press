@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'test_summarization',
+    'text_summarization',
     'rest_framework',
 ]
 
@@ -93,14 +93,21 @@ WSGI_APPLICATION = 'TextSummarizer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd2oi0gfil2ecp1',
+#         'USER': 'hrjnsgyktlazxc',
+#         'PASSWORD': 'bebdc8cd24063c43a7766eb61deab08939e9d0d06bd7c4ddf2c9b46ef14eea55',
+#         'HOST': 'ec2-54-235-180-123.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd2oi0gfil2ecp1',
-        'USER': 'hrjnsgyktlazxc',
-        'PASSWORD': 'bebdc8cd24063c43a7766eb61deab08939e9d0d06bd7c4ddf2c9b46ef14eea55',
-        'HOST': 'ec2-54-235-180-123.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -158,9 +165,9 @@ STATICFILES_DIRS = (
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-import dj_database_url
-prod_db = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# import dj_database_url
+# prod_db = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
 
 # Celery settings
 REDIS_HOST = 'localhost'

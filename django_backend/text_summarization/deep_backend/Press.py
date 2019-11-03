@@ -1,13 +1,8 @@
-﻿from nltk import sent_tokenize
-from collections import defaultdict
-from stopwords import UKRAINIAN
+﻿from collections import defaultdict
+from .stopwords import UKRAINIAN
 from collections import Counter
-from stemming import stem
+from .stemming import stem
 import re
-
-import nltk
-nltk.download('punkt')
-
 
 def words_steam_cleaner(first_list):
     return Counter([stem(word) for word in first_list if word not in UKRAINIAN])
@@ -86,6 +81,3 @@ def Press(text_to_press, number_of_sentences_to_output, **kwargs):
 
     sentences_to_output = [tokened_sentences[index] for index in sorted(sentence_indexes_to_output)]
     return sentences_to_output
-
-data = open('news.txt', 'r').read()
-print('\n\n'.join(Press(data, 10)))

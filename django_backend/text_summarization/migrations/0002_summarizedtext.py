@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('test_summarization', '0001_initial'),
+        ('text_summarization', '0001_initial'),
     ]
 
     operations = [

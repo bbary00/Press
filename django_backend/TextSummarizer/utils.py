@@ -1,4 +1,4 @@
-from test_summarization.serializers import UserSerializer
+from text_summarization.serializers import UserSerializer
 
 
 def my_jwt_response_handler(token, user=None, request=None):
