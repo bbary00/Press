@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap';
-import './App.css';
+import './App.scss';
 import Header from './components/Header/Header';
 import Main from './components/Content/Main/Main';
 import Footer from './components/Footer/Footer';
@@ -9,26 +9,29 @@ import { Route, Redirect } from 'react-router-dom';
 
 const App = (props) => {
 	return (
-		
-			<div>
-				<div className="headWrapper">
-					<Header />
-				</div>
-				<div className="contentWrapper">
-					{/* <div className="adSenseContainer">ADSENSE 1</div> */}
-					<div className="contentContainer">
-						<Route path="/main"
-							render={() => <Main />} />
-						
-						{/* <Route path="/settings" render={() => <Settings />} /> */}
-						<Redirect from="/" exact to="/main" />
-					</div>
-					{/* <div className="adSenseContainer">ADSENSE 2</div> */}
-				</div>
-				<div className="footerWrapper">
-					<Footer />
-				</div>
+
+		<div>
+			<div className="headWrapper">
+				<Header />
 			</div>
+			<div className="contentWrapper">
+				{/* <div className="adSenseContainer">ADSENSE 1</div> */}
+				<div className="contentContainer">
+					<Route path="/main"
+						render={() => <Main />} />
+					<Route path="/login"
+						render={() => <Main />} />
+					<Route path="/signup"
+						render={() => <Main />} />
+					{/* <Route path="/settings" render={() => <Settings />} /> */}
+					<Redirect from="/" exact to="/main" />
+				</div>
+				{/* <div className="adSenseContainer">ADSENSE 2</div> */}
+			</div>
+			<div className="footerWrapper">
+				<Footer />
+			</div>
+		</div>
 	);
 };
 

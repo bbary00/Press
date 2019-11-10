@@ -1,12 +1,12 @@
 import React from 'react';
-import s from './TextProcessing.module.css';
+import s from './TextProcessing.module.scss';
 import SentenceTemplate from './SentenceTemplate/SentenceTemplate';
 import ProcessingSettingsContainer from "./ProcessingSettings/ProcessingSettingsContainer.js";
 // import { changeTextToProcessCreator, addSentencesFromSummarizedTextCreator } from '../../../../redux/mainPage-reducer'
 
 const TextProcessing = (props) => {
 	// debugger;
-	
+
 	let inputText = React.createRef();
 
 	let onInputTextChange = (e) => {
@@ -39,7 +39,6 @@ const TextProcessing = (props) => {
 			})
 			.catch(error => console.error('Ошибка:', error));
 	}
-
 	let summarizedTextElements = props.mainPage.textSummarized.map(item => <SentenceTemplate title={item.id} text={item.text} />);
 
 	return (
@@ -51,7 +50,7 @@ const TextProcessing = (props) => {
 							<span style={{ fontWeight: '400', fontSize: '1rem' }}>or &nbsp;&nbsp;</span>
 							<span>
 								<button className={`btn btn-sm sunny-morning-gradient ${s.btnSmall} ${s.btnUpload}`}>
-									<i className="fas fa-file-upload" style={{ marginRight: '10px', top: '2px' }}></i>Upload file
+									<i className={`${s.uploadIcon} fas fa-file-upload`} style={window.innerWidth < 420 ? { marginRight: "0px" } : {}} ></i>{window.innerWidth > 420 ? 'Upload file' : null}
 								</button>
 							</span>
 						</p>

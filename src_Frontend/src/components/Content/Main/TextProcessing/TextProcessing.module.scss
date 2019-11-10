@@ -12,7 +12,13 @@
   padding-left: 10px;
   font-weight: 500;
   font-size: 1.2rem;
+  display: block;
+  overflow: wrap;
   /* text-align: center; */
+  .uploadIcon {
+    margin-right: 10px; 
+    top: 2px; 
+  }
 }
 .box {
   padding: 15px 15px 15px 15px;
