@@ -23,7 +23,7 @@ class TextSummarizationApiView(generics.CreateAPIView):
     serializer_class = TextSummarizationSerializer
 
     def post(self, request, *args, **kwargs):
-        original_text = request.data.get('full_text')
+        original_text = request.data.get('original_text')
         number_of_sentences = int(request.data.get('number_of_sentences')) if request.data.get('number_of_sentences') else None
         summarized_text = Press(original_text, number_of_sentences)
         index_sentence_dict = [{'id': index+1, 'text': sentence} for (index, sentence) in enumerate(summarized_text)]
