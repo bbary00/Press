@@ -2,19 +2,18 @@ from text_summarization.serializers import UserSerializer, \
                                            UserRegisterSerializer, \
                                            TextSummarizationSerializer
 from rest_framework import permissions, status, generics, mixins
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .deep_backend.Press import Press
 from django.contrib.auth import get_user_model
 
 
-@api_view(['GET'])
-def current_user(request):
-    """
-    Determine the current user by their token, and return their data
-    """
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
+class CurrentUserView(APIView):
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
 
 # TODO Change text view
