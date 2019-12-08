@@ -73,6 +73,7 @@ def create_groups(sent_indexes, max_value=20000):
 
 def Press(text_to_press, number_of_sentences_to_output, **kwargs):
     """Main function to call"""
+    number_of_words_before = len(text_to_press.split())
     stemmed_tokens, stemmed_sentences, tokened_sentences = text_preprocess(text_to_press)
     main_tokens = word_evaluation(stemmed_tokens)
 
@@ -80,4 +81,5 @@ def Press(text_to_press, number_of_sentences_to_output, **kwargs):
     sentence_indexes_to_output = most_relevant_sentence_indexes[:number_of_sentences_to_output]
 
     sentences_to_output = [tokened_sentences[index] for index in sorted(sentence_indexes_to_output)]
-    return sentences_to_output
+    number_of_words_after = len(' '.join(sentences_to_output).split())
+    return sentences_to_output, number_of_words_before - number_of_words_after

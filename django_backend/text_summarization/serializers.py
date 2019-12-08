@@ -71,19 +71,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 class TextSummarizationSerializer(serializers.ModelSerializer):
 
-    # number_of_sentences = serializers.SerializerMethodField()
     class Meta:
         model = SummarizedText
-        fields = [
-            'full_text',
-            # 'number_of_sentences'
-        ]
-
-    def create(self, validated_data):
-        print(validated_data)
-        return validated_data
-
-    # def get_number_of_sentences(self):
-    #     request = self.context.get('request')
-    #     print(request)
-    #     return request.get('number_of_sentences')
+        fields = '__all__'

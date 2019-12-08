@@ -136,6 +136,7 @@ JWT_AUTH = {
 
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'TextSummarizer.utils.my_jwt_response_handler',
 
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2),
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7)
     
