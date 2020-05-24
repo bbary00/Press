@@ -1,0 +1,145 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <title>Press</title>
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-gr-c-s-loaded="true">
+    <!-- Anim background -->
+    <div id="particles-js"></div>
+    <!-- Header -->
+    <div class="container container-main">
+      <div class="page-header page-header-main">
+        <div class="logo">
+            <a href="{% url 'main' %}">PressYourText</a>
+        </div>
+        <div class="header-link">
+          {% if user.is_authenticated %}
+            <a href="{% url 'cabinet' %}" class="a-header"><i class="fas fa-home fa-3x"></i></a>
+            <a href="{% url 'logout' %}" class="a-login">Вийти</a>
+          {% else %}
+            <a href="javascript:PopUpShow()" class="a-login">Вхід</a>
+          {% endif %}
+          <div class="popup" id="popup1" style="visibility: hidden;">
+            <div class="popup-wrap">
+              <div class="popup-content">
+                <div class="popup-header">
+                  <span class="popup-header-span">
+                    Увійди або зареєструйся
+                  </span>
+                  <a href="javascript:PopUpHide()"
+                    ><i class="fas fa-times fa-2x"></i
+                  ></a>
+                </div>
+                <div class="popup-form-wrap">
+                  <div class="signup">Реєстріція</div>
+                  <div class="login">Вхід</div>
+                  <form class="signup-form">
+                    {% csrf_token %}
+                    {% for field in sign_up_form %}
+                        <div class="input">
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <input type="submit" class="btn" value="Зареєструватися" />
+                    <a class="send_activation" style="display: none;">Надіслати активацію на пошту...</a>
+                  </form>
+                  <form class="login-form">
+                    {% csrf_token %}
+                    {% for field in login_form %}
+                        <div class="input">
+                            {{ field }}
+                        </div>
+                        {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                        {% endif %}
+                    {% endfor %}
+                    <input type="submit" class="btn" value="Увійти" />
+                    <a class="change_password" style="display: none;">Змінити пароль</a>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Menu -->
+    <div class="menu menu-main">
+        <div id="mySidenav" class="sidenav">
+           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+           {% if user.is_authenticated and output and not "cabinet" in request.path%}
+              <a id="save_text"><i class="fas fa-3x fa-save"></i></a>
+           {% endif %}
+           {% if output%}
+              <a id="copy_text"><i class="far fa-3x fa-copy"></i></a>
+              <a id="save_pdf"><i class="fas fa-3x fa-file-pdf"></i></a>
+           {% endif %}
+           {% if user.is_authenticated and output and "cabinet" in request.path %}
+              <a id="delete_text"><i class="fa fa-3x fa-trash-alt"></i></a>
+           {% endif %}
+        </div>
+        <span class="menu-icon" onclick="openNav()">  
+           <i class="fas  fa-bars "></i>   
+        </span>
+     </div>
+    <!-- Info -->
+    <div class="info-cabinet">
+      <div id="mySideinfoCabinet" class="sideinfocabinet">
+         <a href="javascript:void(0)" class="closebtn" onclick="closeInfo()">&times;</a>
+         <span id="insert-before"></span>
+          {% for message in messages %}
+            <div class="error">{{ message }}</div>
+          {% endfor %}
+      </div>
+      <span class="info-cabinet-icon" onclick="openInfo()">  
+         <i class="fas fa-info-circle"></i>
+      </span>
+   </div>
+
+   <!-- Content -->
+    <div class="content container container-main">
+      {% block content %} {% endblock %}
+    </div>
+
+    <!-- When less than 600px -->
+    <div class="mobile-main">
+      <div class="logo logo-mobile-main">
+        PressYourText
+      </div>
+      <h3 class="mobile-main-title">
+        Для використання мобільної версії перейдіть у телеграм!
+      </h3>
+      <a class="mobile-main-link" href="https://t.me/summarize_me_bot">Telegram!</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <h4>PressYourText is a project made with love ^.^</h4>
+      <div class="footer-link">
+        <a href="https://github.com/Bodyk1Love/Text-summarization" target="_blank" class="footer-a">Допомога</a>
+        <a href="https://github.com/Bodyk1Love/Press" target="_blank" class="footer-a">Про проект</a>
+        <a href="https://github.com/Bodyk1Love" target="_blank" class="footer-a">Зворотній зв'язок</a>
+      </div>
+      <h5><i class="far fa-copyright"></i> 2020 | All rights are reserved</h5>
+    </footer>
+  </body>
+<!-- Scripts -->
+{% block scripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{% static "js/particles.js" %}"></script>
+  <script src="{% static "js/app.js" %}"></script>
+  <script src="{% static "js/main.js" %}"></script>
+{% endblock %}
+
+</html>

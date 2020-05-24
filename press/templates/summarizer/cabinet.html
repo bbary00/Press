@@ -1,0 +1,47 @@
+{% extends 'summarizer/base.html' %} 
+{% load staticfiles %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static "js/cabinet.js" %}"></script>
+{% endblock %}
+
+{% block content %} 
+<div class="wrap-cabinet">
+  <h1>Hello {{ user.username }}</h1>
+
+  {% if not user.telegramprofile.chat_id %} 
+    <form action="/telegram_code/" method="post" class="summarizeForm">
+      {% csrf_token %}
+      <input type="submit" class="button"  id="code-generation-button" value="Generate telegram code!"> 
+    </form>
+    <div class="logo">
+      <a href="https://t.me/summarize_me_bot" target="_blank">Відкрити бота</a>
+    </div>
+    {{ form }}
+  {% endif %}  
+
+  {% if output %}
+    <div class="output-summarized" id="output">
+      {% for id, sentence in output.items %}
+      <div class="{% if id in main_indexes %}main{% endif %}">
+        {{ sentence }}
+      </div>
+      {% endfor %}
+      <form action="/delete/{{ id }}/" method="post" class="deleteForm">
+        {% csrf_token %}
+      </form>
+      {{ hidden_form }}
+    </div>
+  {% endif %}
+
+  {% if texts %}
+    <div id="texts">
+      {% for id, text in texts %}
+        >>> <a href="/cabinet/{{ id }}/" id="texts-a">{{ text }}</a><br />
+      {% endfor %}
+    </div>
+  {% endif %} 
+</div>
+
+{% endblock %}

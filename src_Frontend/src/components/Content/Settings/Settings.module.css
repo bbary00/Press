@@ -1,7 +1,0 @@
-.settings {
-  grid-area: c;
-  background-color: #ffffff;
-  position: relative;
-  z-index: 80;
-  min-height: calc(100vh - 90px);
-}

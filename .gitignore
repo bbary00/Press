@@ -1,4 +1,9 @@
 venv
+dumps
+.vscode
+saved_model
+__pycache__
 .idea
 
 *.sqlite3
+settings.py

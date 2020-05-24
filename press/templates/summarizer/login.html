@@ -1,0 +1,17 @@
+{% extends 'summarizer/base.html' %}
+
+
+{% block content %}
+  <h2>Login</h2>
+
+  {% if messages %}
+    {{ messages }}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <a href="{% url 'signup' %}">Signup</a>
+{% endblock %}

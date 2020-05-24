@@ -1,0 +1,5 @@
+{% autoescape off %} 
+Привіт {{ user.username }}, 
+Перейди за цією силкою, щоб активувати свій акаунт: 
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

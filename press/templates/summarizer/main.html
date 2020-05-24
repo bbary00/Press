@@ -1,0 +1,47 @@
+{% extends 'summarizer/base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static "js/index.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+   <form action="/" method="post" class="summarizeForm">
+      {% csrf_token %}
+         {{ main_form.text|attr:maxlength }}
+     
+      <div class="tools">
+         <div class="slidecontainer">
+            {{ main_form.number_of_percent }}
+            <label for="id_number_of_percent">Речення:</label>
+            <output id="rangeValue"></output>
+         </div>
+         <label class="checkbox-1">
+            {{ main_form.with_context }}
+            <span class="check-label-sum">З контекстом?</span>
+         </label>
+         <div class="main-ok">
+            <input type="submit" value="Прес!" class="button button-main">
+         </div>
+         {{ main_form.number_of_sentence }}
+         {{ main_form.output }}
+         {{ main_form.main_indexes }}
+      </div>
+   </form>
+
+   {% if output %}
+      <div class="output-summarized" id="output">
+         {% for id, sentence in output.items %}
+            {% if with_context or id in main_indexes %}
+               <div class="{% if id in main_indexes %}main{% endif %}">
+                  {{ sentence }}
+               </div>
+            {% endif %} 
+         {% endfor %}
+      </div>
+   {% endif %}
+{% endblock %}
+
+
